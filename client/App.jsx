@@ -1,8 +1,13 @@
 import React from 'react';
 
+import LoginPage from './components/LoginPage.jsx';
+
 const App = () => {
   return (
-    <h1>Axolotl Beats: beats forEach</h1>
+    <div>
+      <h1>Axolotl Beats: beats forEach</h1>
+      <LoginPage />
+    </div>
   );
 };
 
