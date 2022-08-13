@@ -1,10 +1,14 @@
+//const { webpack } = require('webpack');
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, "./client/index.js"),
   output: {
-    path: path.resolve(__dirname, "./build"),
+    // * changed "./build" to "build"
+    path: path.resolve(__dirname, "build"),
+    // * added public path below
+    publicPath: '/',
     filename: "bundle.js",
   },
   mode: "development",
@@ -36,7 +40,8 @@ module.exports = {
       "/api": "http://localhost:3000",
     },
     static: {
-      publicPath: "/build",
+      // * changed public path from "/build" to "/"
+      publicPath: "/",
       directory: path.join(__dirname, "build"),
     },
   },
