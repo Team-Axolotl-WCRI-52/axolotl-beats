@@ -1,19 +1,23 @@
 const express = require('express');
 const spotifyApi = require('../utils/apiWrapper');
 const querystring = require('node:querystring');
+const playlistController = require('../controllers/playlistController');
 
 const router = express.Router();
 
-// redirect to spotify auth form for user sign in
+// redirect to spotify auth form for user sign in/authentication
 
 router.get('/auth', (req, res) => {
-  console.log('inside backend request');
+  // console.log('inside backend request');
+  const scope = 'playlist-modify-public';
   // STRETCH: figure out scope prop & state prop 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.CLIENT_ID,
-      redirect_uri: 'http://localhost:8080/api/getToken'}));
+      redirect_uri: process.env.REDIRECT_URI,
+      scope
+    }));
   });
 
 // obtain access token and refresh token using code from user auth
@@ -28,12 +32,32 @@ router.get('/getToken', (req, res) => {
       // console.log(data.body);
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
-      console.log('big obj:', spotifyApi);
+      // console.log('big obj:', spotifyApi);
+      // to be replaced with redirect?: 
       res.status(200).send('done');
     })
-    .catch(err => console.log('spotify api web error'))
-
+    // testing create playlist
+    // .then(data => { 
+    //   return spotifyApi.createPlaylist('Axolotl Workout 2', {'description': 'pls work', 'public': true})
+    // })
+    // .then(data => {
+    //   console.log(data.body);
+    //   res.status(200).send('done');
+    // })
+    .catch(err => {
+      console.log(err)
+      res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
 });
+
+// router.post('/getPlaylist',
+//   playlistController.createPlaylist,
+//   playlistController.getRecommendationParams
+//   playlistController.getTracks,
+//   playlistController.addTracks,
+//   (req, res) => {
+//     res.status(200).json(res.locals.playlistId)
+//   }
+// );
 
 /*
   NEXT STEPS
@@ -54,31 +78,6 @@ router.get('/getToken', (req, res) => {
   access token (via cookie/JWT/sessions?) so we can pull that and customize our own
   requests/queries
 */
-
-
-
-  // we can also pass the token to the browser to make requests from there
-  // store access token somehow? session? localstorage? cookie?  ? 
-  // also possible to redirect to new react view and grab tokens from querystring
-
-//   res.redirect('/#' +
-//     querystring.stringify({
-//       access_token: access_token,
-//       refresh_token: refresh_token
-//     }));
-// } else {
-//   res.redirect('/#' +
-//     querystring.stringify({
-//       error: 'invalid_token'
-//     }));
-
-  
-  // TO DO: make post request to get access token
-  // extract code from req params
-  // package it into { } option obj 
-  // make fetch post request to [spotify get token url]
-
-  // res.status(200).send('done')
 
 
 module.exports = router;
