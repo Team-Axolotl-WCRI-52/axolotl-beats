@@ -2,8 +2,8 @@ const path = require('path');
 const express = require('express');
 const apiRouter = require('./routes/api');
 const cors = require('cors');
-const dotenv = require('dotenv');
 // processes .env into process.env
+const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
