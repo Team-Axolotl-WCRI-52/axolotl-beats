@@ -6,8 +6,8 @@ class LoginPage extends Component {
   render() {
     return (
      <div id="loginPage">
-      <h3>Login to Spotify here...</h3>
-      <button className="login">Spotify Login</button>
+      <h3>Login to Spotify below to continue</h3>
+      <button class="login">Spotify Login</button>
      </div> 
     )
   };

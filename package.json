@@ -8,7 +8,8 @@
     "build": "webpack",
     "devStart": "nodemon server/server.js",
     "dev": "webpack serve --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mb": "concurrently \"webpack-dev-server --open\" \"nodemon server/server.js\" "
   },
   "repository": {
     "type": "git",

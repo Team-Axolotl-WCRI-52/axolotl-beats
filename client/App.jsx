@@ -1,11 +1,12 @@
 import React from 'react';
 
 import LoginPage from './components/LoginPage.jsx';
+import './stylesheets/styles.scss'
 
 const App = () => {
   return (
-    <div>
-      <h1>Axolotl Beats: beats forEach</h1>
+    <div id="app">
+      <h1 id="title">Axolotl Beats: beats forEach</h1>
       <LoginPage />
     </div>
   );

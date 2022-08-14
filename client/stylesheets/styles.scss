@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+$font-family: 'Quicksand', sans-serif;
+$primary-color: pink;
+
+#app {
+  font-family: $font-family;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh
+};
+#title {
+  font-size: 80px;
+}
+
+#loginPage{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ font-size: 40px;
+}
+
+.login {
+  font-family: $font-family;
+  width: auto;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  background-color: rgb(33, 198, 33);  
+  font-size: 30px;
+  border-radius: 8px;
+}
+
+.login:hover { box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 6px 20px 0 rgba(0,0,0,0.19);}
+
