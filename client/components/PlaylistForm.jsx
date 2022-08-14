@@ -4,36 +4,51 @@ const PlaylistForm = (props) => {
 
   // declare const for each of our drop downs
   // create React component for each element in drop down (stretch)
-  const genres = ['']
+  // const genres = ['']
 
-  // onsubmit click handler for create playlist form 
-  const handlePlaylistSubmit = (event) => {
+  // onsubmit click handler for create playlist form and send to backend
+  const handlePlaylistSubmit = async (event) => {
+    // prevent immediately reloading of page when form is submitted
     event.preventDefault();
-    // send form data to backend
-    console.log(event.target[0].value);
-    console.log(event.target[1].value);
-    console.log(event.target[2].value);
+
+    // add input from form to constants genre, tempo, and duration
     const genre = event.target[0].value;
     const tempo = event.target[1].value;
     const duration = event.target[2].value;
+
     // package form-data into an object
     const requestData = {genre, tempo, duration};
     console.log(requestData);
     // get request to backend, with body as requestData
     // use await
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(requestData),
+    };
+    // declare const for endpoint to submit playlist form data to
+    const playlistSubmitUrl = '';
+
+    // attempting to do fetch with async / await and try/catch block 
+    try {
+      // make request to backend and save response to const
+      const response = await fetch(playlistSubmitUrl);
+      // jsonify response and save to const playlist 
+      const playlist = await response.json();
+      // TODO: save playlist data to state and render Spotify iFrame component 
+      // potentially redirect user as well to new landing page with Spotify iFrame component
+    } catch (error) { // handle errors
+      console.log('Fetch error is:', error);
+    }
+    
   }
 
   return (
   <div>
     <div className='formContainer'>
       <form className='playlist-form' onSubmit={handlePlaylistSubmit}>
-
-        {/* Stretch feature: sliding scale for tempo
-         <div>
-          <label htmlFor="tempo">What tempo would you like your playlist to be?</label>
-          <input type="range" id="tempo" name="tempo"
-                min="1" max="2"/>
-        </div> */}
 
         <div className='dropdown-container'>
           <label className='dropdown-label'>
