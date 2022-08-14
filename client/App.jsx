@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 import LoginPage from './components/LoginPage.jsx';
 import PlaylistPage from './components/PlaylistPage.jsx';
@@ -11,10 +11,10 @@ const App = () => {
     <Router>
       <div>
       <h1>Axolotl Beats: beats forEach</h1>
-      <PlaylistPage />
       <Routes>
         <Route path = '/' element={ <LoginPage /> }></Route>
         <Route path='/player' element={ <EmbeddedPlayer /> }></Route>
+        <Route path='/playlistform' element={ <PlaylistPage/> }></Route>
     </Routes>
     < TempReroute />
     </div>

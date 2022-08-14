@@ -1,6 +1,7 @@
 const express = require('express');
 const spotifyApi = require('../utils/apiWrapper');
 const querystring = require('node:querystring');
+const path = require('path');
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ router.get('/getToken', (req, res) => {
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
       console.log('big obj:', spotifyApi);
-      res.redirect('/player');
+      res.redirect('/#/playlistform');
       //res.status(200).send('done');
     })
     .catch(err => console.log('spotify api web error'))

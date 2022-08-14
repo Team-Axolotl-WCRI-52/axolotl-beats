@@ -5,6 +5,7 @@ const TempReroute = () => {
   return(
     <div>
       <Link to='/player'>Player</Link>
+      <Link to='/playlistform'>Playlist Form</Link>
     </div>
   )
 }

@@ -14,11 +14,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 // use api, go to apirouter
 app.use('/api', apiRouter);
 
-//for react routes
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../index')))
+app.get('/*', (req, res) => {
+  console.log('in server.js, rerouting from spotify auth middleware.')
+  console.log(path.resolve(__dirname, '../../client/index.html'));
+  res.sendFile(path.resolve(__dirname, '../../client/index.html'))
+})
 
 // console log while listening on our port 
 app.listen(PORT, () => {
