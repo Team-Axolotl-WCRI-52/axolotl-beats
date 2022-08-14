@@ -29,7 +29,8 @@ router.get('/getToken', (req, res) => {
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
       console.log('big obj:', spotifyApi);
-      res.status(200).send('done');
+      res.redirect('/player');
+      //res.status(200).send('done');
     })
     .catch(err => console.log('spotify api web error'))
 

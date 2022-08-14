@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 // use api, go to apirouter
 app.use('/api', apiRouter);
 
+//for react routes
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../index')))
+
 // console log while listening on our port 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
