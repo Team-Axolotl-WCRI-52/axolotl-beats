@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/auth', (req, res) => {
   const client_id = process.env.CLIENT_ID;
-  const redirect_uri = 'http://localhost:8080/';
+  // revise uri /api/getToken
+  const redirect_uri = 'http://localhost:8080/api/getToken';
   console.log('inside backend request');
 
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -14,7 +15,16 @@ router.get('/auth', (req, res) => {
       client_id: client_id,
       redirect_uri: redirect_uri}));
 
-  // res.redirect('https://google.com');
+  });
+
+  router.get('getToken', (req, res) => {
+    // TO DO: make post request to get access token
+    // extract code from req params
+    // package it into { } option obj 
+    // make fetch post request to [spotify get token url]
+    // ???
+    // profit? 
+    // store access token somehow? session? localstorage? cookie? 
   });
 
 module.exports = router;
