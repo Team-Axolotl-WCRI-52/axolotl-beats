@@ -53,7 +53,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What genre are you in the mood for?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Genre</option>
               <option value="electronic">Electronic</option>
               <option value="rap">Rap</option>
               <option value="jazz">Jazz</option>
@@ -65,7 +66,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What tempo would you like your playlist to follow?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Tempo</option>
               <option value="fast">Fast</option>
               <option value="slow">Slow</option>
             </select>
@@ -75,13 +77,14 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
           How long would you like your playlist to last?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Duration:</option>
               <option value="30-min">30 minutes</option>
             </select>
           </label>
         </div>
 
-        <input type="submit" value="Give me my playlist!"/>
+        <input className='makePlaylist' type="submit" value="Give me my playlist!"/>
 
       </form>
 

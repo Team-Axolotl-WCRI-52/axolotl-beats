@@ -5,21 +5,37 @@ import EmbeddedPlayer from './components/EmbeddedPlayer.jsx';
 import TempReroute from './components/TempReroute.jsx';
 
 import LoginPage from './components/LoginPage.jsx';
-import './stylesheets/styles.scss'
+import './stylesheets/styles.scss';
+// import img from '/client/stylesheets/logo.png'
+
 
 
 const App = () => {
   return (
     <Router>
       <div id="app">
-      <h1 id="title">Axolotl Beats: beats forEach</h1>
+        <nav id='navBar'>
+            {/* <img >{ img }</img> */}
+            {/* src='/client/stylesheets/logo.png' */}
+          <ul className="navList">
+            <li className='links' id='logoutButton' ><a className='bye' href='http://google.com'>Logout</a></li>
+            {/* <li className='links' id='formRedirect'><a className='bye' href='http://localhost:8080/playlistform'>Playlist Form</a></li> */}
+          </ul>
+        </nav>
+      <div id='title'>
+        <div id="name">Axolotl Beats</div>
+        <div id='slogan'>beats forEach</div>
+      </div>
       <Routes>
         <Route path = '/' element={ <LoginPage /> }></Route>
         <Route path='/player' element={ <EmbeddedPlayer /> }></Route>
         <Route path='/playlistform' element={ <PlaylistPage/> }></Route>
     </Routes>
-    < TempReroute />
+    {/* <div id='links'>
+      < TempReroute />
+    </div> */}
     </div>
+    <nav className='end' id='navBar'>End</nav>
   </Router>
   )
 };
