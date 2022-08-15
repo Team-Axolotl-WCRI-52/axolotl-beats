@@ -32,9 +32,9 @@ router.get('/getToken', (req, res) => {
       // console.log(data.body);
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
-      // console.log('big obj:', spotifyApi);
-      // to be replaced with redirect?: 
-      res.status(200).send('done');
+      console.log('big obj:', spotifyApi);
+      res.redirect('/#/playlistform');
+      //res.status(200).send('done');
     })
     // testing create playlist
     // .then(data => { 
@@ -49,15 +49,15 @@ router.get('/getToken', (req, res) => {
       res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
 });
 
-// router.post('/getPlaylist',
-//   playlistController.createPlaylist,
-//   playlistController.getRecommendationParams
-//   playlistController.getTracks,
-//   playlistController.addTracks,
-//   (req, res) => {
-//     res.status(200).json(res.locals.playlistId)
-//   }
-// );
+router.post('/getPlaylist',
+  playlistController.createPlaylist,
+  playlistController.getRecommendationParams,
+  playlistController.getTracks,
+  playlistController.addTracks,
+  (req, res) => {
+    res.status(200).json(res.locals.playlistId)
+  }
+);
 
 /*
   NEXT STEPS
