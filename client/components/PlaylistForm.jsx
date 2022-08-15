@@ -22,21 +22,24 @@ const PlaylistForm = (props) => {
     // get request to backend, with body as requestData
     // use await
     const requestOptions = {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(requestData),
     };
     // declare const for endpoint to submit playlist form data to
-    const playlistSubmitUrl = '';
+    const playlistSubmitUrl = '/api/getPlaylist';
 
     // attempting to do fetch with async / await and try/catch block 
     try {
       // make request to backend and save response to const
-      const response = await fetch(playlistSubmitUrl);
+      const response = await fetch(playlistSubmitUrl, requestOptions);
+      // console.log('response: ', response);
+      // console.log('parsed response: ', JSON.parse(response));
       // jsonify response and save to const playlist 
       const playlist = await response.json();
+      console.log('playlist id:', playlist);
       // TODO: save playlist data to state and render Spotify iFrame component 
       // potentially redirect user as well to new landing page with Spotify iFrame component
     } catch (error) { // handle errors

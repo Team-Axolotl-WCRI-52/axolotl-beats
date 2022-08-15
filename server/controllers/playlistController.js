@@ -1,16 +1,21 @@
-// const spotifyApi = require("../utils/apiWrapper");
+const spotifyApi = require("../utils/apiWrapper");
 
 const playlistController = {};
 
 playlistController.createPlaylist = async (req, res, next) => {
   try {
+    const { genre } = req.body;
+    spotifyApi.setAccessToken(req.cookies.access)
+    spotifyApi.setRefreshToken(req.cookies.refresh);
     // TODO Extract playlist title & description from req.body
     // Note: ask FE if can include those fields on form
     const data = await spotifyApi.createPlaylist(
-      'Axolotl Workout',
+      `${genre} Axolotl Workout`,
       {'description': 'please work out', 'public': true}
     );
-    res.locals.playlistId = data.id;
+    res.locals.playlistId = data.body.id;
+    // console.log('what does our playlist id look like? ', data.id);
+    //res.locals.playlistId = 'fake ID';
     return next();
   } catch (err) {
     return next({

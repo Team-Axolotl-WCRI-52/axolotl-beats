@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const apiRouter = require('./routes/api');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 // processes .env into process.env
 const dotenv = require('dotenv');
 dotenv.config();
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 // use api, go to apirouter

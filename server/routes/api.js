@@ -30,8 +30,11 @@ router.get('/getToken', (req, res) => {
   spotifyApi.authorizationCodeGrant(code)
     .then(data => {
       // console.log(data.body);
+      const { access_token, refresh_token } = data.body;
+      console.log('access token:', access_token);
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
+      res.cookie('access', access_token).cookie('refresh', refresh_token);
       console.log('big obj:', spotifyApi);
       res.redirect('/#/playlistform');
       //res.status(200).send('done');
@@ -51,11 +54,14 @@ router.get('/getToken', (req, res) => {
 
 router.post('/getPlaylist',
   playlistController.createPlaylist,
-  playlistController.getRecommendationParams,
-  playlistController.getTracks,
-  playlistController.addTracks,
+  // playlistController.getRecommendationParams,
+  // playlistController.getTracks,
+  // playlistController.addTracks,
   (req, res) => {
+    // console.log('received stuff', req.body);
+    // res.end();
     res.status(200).json(res.locals.playlistId)
+    // res.status(200).send(res.locals.playlistId)
   }
 );
 
