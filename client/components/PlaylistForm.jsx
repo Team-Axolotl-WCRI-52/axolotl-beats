@@ -52,7 +52,7 @@ const PlaylistForm = (props) => {
       // invoke props.updatePlaylistId, passing in test ID
       props.updatePlaylistId(playlist);
 
-      // use React router useNavigate to redirect to player
+      // display button
       setShowButton(true);
 
 
