@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/auth', (req, res) => {
   // console.log('inside backend request');
   const scope = 'playlist-modify-public';
-  // STRETCH: figure out scope prop & state prop 
+  // STRETCH: add state prop for additional validation
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -32,8 +32,8 @@ router.get('/getToken', (req, res) => {
       // console.log(data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
-      // spotifyApi.setAccessToken(data.body['access_token']);
-      // spotifyApi.setRefreshToken(data.body['refresh_token']);
+      // spotifyApi.setAccessToken(access_token);
+      // spotifyApi.setRefreshToken(refresh_token);
       res.cookie('access', access_token).cookie('refresh', refresh_token);
       console.log('big obj:', spotifyApi);
       res.redirect('/#/playlistform');
@@ -53,17 +53,8 @@ router.post('/getPlaylist',
 );
 
 /*
-  NEXT STEPS
-  1. have user submit their preferences from FE to BE
-    a. will we have CORS problems? SO FAR SO GOOD
-    b. if so, can try same workaround, connecting user input button to link path 
-      i. can try passing data as part of query string (e.g. '/?tempo=fast...')
-  2. semi-stretch?: ask user to add playlist title and description
-  3. parse prefs data and continue on API call middlewares
-
-  STRETCH(?) consideration: need to invoke wrapper method to refreshToken after token expires
+  STRETCH consideration: need to invoke wrapper method to refreshToken after token expires
     subproblem: how to detect token expiration? maybe when API call middleware errors
-
 */
 
 
