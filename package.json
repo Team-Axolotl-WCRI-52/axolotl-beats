@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Team-Axolotl-WCRI-52/axolotl-beats#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.1",

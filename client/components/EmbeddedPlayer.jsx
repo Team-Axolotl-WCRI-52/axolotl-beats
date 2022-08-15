@@ -1,7 +1,7 @@
 import React from 'react';
 
 const EmbeddedPlayer = props => {
-  const uri = 'https://open.spotify.com/playlist/5jqYSvS370tM8WRUxQoiHp?si=b31478fb6809433e'
+  const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`
   return(
     <div>
       <iframe

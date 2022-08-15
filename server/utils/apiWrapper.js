@@ -8,7 +8,7 @@ dotenv.config();
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: 'http://localhost:8080/api/getToken'
+  redirectUri: process.env.REDIRECT_URI
 });
 
 // console.log('client id:', process.env.CLIENT_ID);
