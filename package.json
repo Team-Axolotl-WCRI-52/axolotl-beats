@@ -23,11 +23,16 @@
   },
   "homepage": "https://github.com/Team-Axolotl-WCRI-52/axolotl-beats#readme",
   "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
     "css-loader": "^6.7.1",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "sass-loader": "^13.0.2",
+    "spotify-web-api-node": "^5.0.2",
     "style-loader": "^3.3.1"
   },
   "devDependencies": {
@@ -43,4 +48,3 @@
     "webpack-dev-server": "^4.9.3"
   }
 }
-
