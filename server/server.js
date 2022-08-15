@@ -22,9 +22,9 @@ app.use('/api', apiRouter);
 
 // redirect to react UI
 app.get('/*', (req, res) => {
-  console.log('in server.js, rerouting from spotify auth middleware.')
-  console.log(path.resolve(__dirname, '../../client/index.html'));
-  res.sendFile(path.resolve(__dirname, '../../client/index.html'))
+  // console.log('in server.js, rerouting from spotify auth middleware.');
+  // console.log(path.resolve(__dirname, '../../client/index.html'));
+  res.sendFile(path.resolve(__dirname, '../../client/index.html'));
 })
 
 // global error handler
