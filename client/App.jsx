@@ -5,6 +5,9 @@ import LoginPage from './components/LoginPage.jsx';
 import PlaylistPage from './components/PlaylistPage.jsx';
 import EmbeddedPlayer from './components/EmbeddedPlayer.jsx';
 import TempReroute from './components/TempReroute.jsx';
+
+import './stylesheets/styles.scss';
+
 // make App stateful -> class component
 // define a handler that updates state (setState) 
 class App extends Component {
@@ -35,15 +38,23 @@ class App extends Component {
 
     return (
       <Router>
-        <div>
-        <h1>Axolotl Beats: beats forEach</h1>
+        <div id='app'>
+          <nav id='navBar'>
+              <ul className="navList">
+                <li className='links' id='logoutButton' ><a className='bye' href='http://google.com'>Logout</a></li>
+              </ul>
+            </nav>
+          <div id='title'>
+            <div id='name'>Axolotl Beats</div>
+            <div id='slogan'>beats forEach</div>
+          </div>
         <Routes>
           <Route path = '/' element={ <LoginPage /> }></Route>
           <Route path='/player' element={ <EmbeddedPlayer playlistId={this.state.playlistId}/> }></Route>
           <Route path='/playlistform' element={ <PlaylistPage updatePlaylistId={this.updatePlaylistId}/> }></Route>
       </Routes>
-      < TempReroute />
       </div>
+      <nav className='end' id='navBar'>End</nav>
     </Router>
     )
 }

@@ -67,19 +67,19 @@ const PlaylistForm = (props) => {
     <div className='formContainer'>
       <form className='playlist-form' onSubmit={handlePlaylistSubmit}>
 
-        <div className="div input-container">
+        <div className="div_input-container">
           What is the name of your new playlist?
           <label className='input-label'>
-            <input>
+            <input className='inputBox'>
             </input>
 
           </label>
         </div>
 
-        <div className="div input-container">
+        <div className="div_input-container">
         What is the description of your new playlist?
           <label className='input-label'>
-            <input>
+            <input className='inputBox'>
             </input>
 
           </label>
@@ -88,7 +88,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What genre are you in the mood for?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Genre</option>
               <option value="electronic">Electronic</option>
               <option value="k-pop">K-Pop</option>
               <option value="work-out">Workout</option>
@@ -101,7 +102,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What tempo would you like your playlist to follow?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Tempo</option>
               <option value="fast">Fast</option>
               <option value="slow">Slow</option>
             </select>
@@ -111,7 +113,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
           How long would you like your playlist to last?<br/>
-            <select>
+            <select className='dropdown-menu'>
+              <option disabled selected>Select Your Duration</option>
               <option value="30">30 minutes</option>
               <option value="60">60 minutes</option>
               <option value="90">90 minutes</option>
@@ -119,11 +122,11 @@ const PlaylistForm = (props) => {
           </label>
         </div>
 
-        <input type="submit" value="Give me my playlist!"/>
+        <input className='makePlaylist' type="submit" value="Give me my playlist!"/>
 
       </form>
 
-      {showButton && <Link to='/player'><button>PLAYERRRR</button></Link>}
+      {showButton && <Link to='/player'><button className='makePlaylist'>Take me to my new playlist</button></Link>}
 
     </div>
   </div>
