@@ -6,11 +6,12 @@ const EmbeddedPlayer = props => {
     <div>
       <iframe
         src={uri}
-        width="50%"
+        width="100%"
         height="380"
         //allow="autoplay; clipboard-write; encrypted-media;"
       >
       </iframe>
+      
     </div>
   )
 }

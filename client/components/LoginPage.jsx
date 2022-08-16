@@ -20,7 +20,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div id="loginPage">
-      <h3>Login to Spotify here...</h3>
+      <h3>Login to Spotify below to continue</h3>
       <a href='http://localhost:8080/api/auth'><button className="login" onClick={this.loginEvent}>Spotify Login</button></a>
       </div> 
     )

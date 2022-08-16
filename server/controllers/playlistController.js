@@ -5,14 +5,12 @@ const playlistController = {};
 // create a new playlist in user's account 
 playlistController.createPlaylist = async (req, res, next) => {
   try {
-    const { genre } = req.body;
+    const { genre, playlistName, playlistDescription } = req.body;
     spotifyApi.setAccessToken(req.cookies.access)
     spotifyApi.setRefreshToken(req.cookies.refresh);
-    // TODO Extract playlist title & description from req.body (user input);
-    // Note: ask FE if can include those fields on form
     const data = await spotifyApi.createPlaylist(
-      `${genre} Axolotl Workout`,
-      {'description': 'please work out', 'public': true}
+      `${playlistName}`,
+      {'description': `${playlistDescription}`, 'public': true}
     );
     res.locals.playlistId = data.body.id;
     return next();
@@ -57,18 +55,18 @@ playlistController.getRecommendations = async (req, res, next) => {
       // con: based on how target_duration works in Spotify API,
         // all tracks would be exactly that duration (e.g. 4:00) or very close
 
-    const targetTrackDurationInMinutes = 4;
-    const durationOption = {
-      target_duration_ms: targetTrackDurationInMinutes * 60000,
-      limit: Math.ceil(targetPlaylistLengthInMinutes / targetTrackDurationInMinutes)
-    };
-    const recommendations = await spotifyApi.getRecommendations({
-      seed_genres: [genre],
-      ...tempoOption,
-      ...durationOption
-    });
-    const tracksArr = recommendations.body.tracks;
-    res.locals.recommendations = tracksArr.map(el => el.uri);
+    // const targetTrackDurationInMinutes = 4;
+    // const durationOption = {
+    //   target_duration_ms: targetTrackDurationInMinutes * 60000,
+    //   limit: Math.ceil(targetPlaylistLengthInMinutes / targetTrackDurationInMinutes)
+    // };
+    // const recommendations = await spotifyApi.getRecommendations({
+    //   seed_genres: [genre],
+    //   ...tempoOption,
+    //   ...durationOption
+    // });
+    // const tracksArr = recommendations.body.tracks;
+    // res.locals.recommendations = tracksArr.map(el => el.uri);
 
     // approach 2: set a random target duration for each track based on some min/max length
       // then use a loop to call and obtain each track of varying duration individually
@@ -78,37 +76,37 @@ playlistController.getRecommendations = async (req, res, next) => {
         // also: API rate limit concerns since we need multiple calls per playlist
 
     // helper func: takes in min/max track length in minutes, returns random length in between, in ms
-    // const getRandomDuration = (min, max) => {
-    //   const minDurationInMS = min * 60000;
-    //   const maxDurationInMS = max * 60000; 
-    //   const range = maxDurationInMS - minDurationInMS;
-    //   return Math.floor((Math.random() * range) + minDurationInMS);
-    // };
+    const getRandomDuration = (min, max) => {
+      const minDurationInMS = min * 60000;
+      const maxDurationInMS = max * 60000; 
+      const range = maxDurationInMS - minDurationInMS;
+      return Math.floor((Math.random() * range) + minDurationInMS);
+    };
 
-    // let playlistDuration = 0;
-    // const targetPlaylistLengthInMS = targetPlaylistLengthInMinutes * 60000;
-    // const recommendations = [];
-    // while (playlistDuration < targetPlaylistLengthInMS) {
-    //   // hardcoding min/max durations to be 2.5 minutes and 5.5 minutes
-    //   // could be user input instead
-    //   const trackDuration = getRandomDuration(2.5, 5.5);
-    //   console.log('random target duration:', trackDuration);
-    //   // set limit to 1 to get one track at a time
-    //   const durationOption = {
-    //     target_duration_ms: trackDuration,
-    //     limit: 1
-    //   };
-    //   const recommendation = await spotifyApi.getRecommendations({
-    //     seed_genres: [genre],
-    //     ...tempoOption,
-    //     ...durationOption
-    //   });
-    //   const track = recommendation.body.tracks; // expects to look like [{track}]
-    //   recommendations.push(...track);
-    //   playlistDuration += trackDuration;
-    // }
-    // const tracksArr = recommendations;
-    // res.locals.recommendations = tracksArr.map(el => el.uri);
+    let playlistDuration = 0;
+    const targetPlaylistLengthInMS = targetPlaylistLengthInMinutes * 60000;
+    const recommendations = [];
+    while (playlistDuration < targetPlaylistLengthInMS) {
+      // hardcoding min/max durations to be 2.5 minutes and 5.5 minutes
+      // could be user input instead
+      const trackDuration = getRandomDuration(2.5, 5.5);
+      console.log('random target duration:', trackDuration);
+      // set limit to 1 to get one track at a time
+      const durationOption = {
+        target_duration_ms: trackDuration,
+        limit: 1
+      };
+      const recommendation = await spotifyApi.getRecommendations({
+        seed_genres: [genre],
+        ...tempoOption,
+        ...durationOption
+      });
+      const track = recommendation.body.tracks; // expects to look like [{track}]
+      recommendations.push(...track);
+      playlistDuration += trackDuration;
+    }
+    const tracksArr = recommendations;
+    res.locals.recommendations = tracksArr.map(el => el.uri);
 
     return next();
   } catch (err) {
