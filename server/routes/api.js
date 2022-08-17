@@ -2,6 +2,7 @@ const express = require('express');
 const spotifyApi = require('../utils/apiWrapper');
 const querystring = require('node:querystring');
 const playlistController = require('../controllers/playlistController');
+const userController = require('../controllers/userController')
 
 const router = express.Router();
 
@@ -31,7 +32,7 @@ router.get('/getToken', (req, res) => {
 
   spotifyApi.authorizationCodeGrant(code)
     .then(data => {
-      // console.log(data.body);
+      console.log('authorizationCodeGrant data.body: ', data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
       // spotifyApi.setAccessToken(access_token);
@@ -49,6 +50,7 @@ router.post('/getPlaylist',
   playlistController.createPlaylist,
   playlistController.getRecommendations,
   playlistController.addTracks,
+  // new middleware to save newlycreated playlist id (res.locals.playlist_id) & spotify user id (res.locals.spotid)
   (req, res) => {
     res.status(200).json(res.locals.playlistId)
   }
@@ -58,6 +60,25 @@ router.post('/getPlaylist',
   STRETCH consideration: need to invoke wrapper method to refreshToken after token expires
     subproblem: how to detect token expiration? maybe when API call middleware errors
 */
+//This is only for development purposes to see all of our documents
+router.get('/users/all', userController.getAllUsers, (req, res, err) => {
+  //res.send(200).json(res.locals.users)
+  res.status(200).json(res.locals.data);
+})
 
+router.post('/users/', userController.getDoc, (req, res, err) => {
+  res.status(200).json(res.locals.doc)
+})
+
+router.post('/users/create/', 
+  userController.createDoc, 
+  (req, res, err) => {
+  res.status(200).send('I\'m still a teapot');
+  // res.send(200).json(res.locals.doc)
+})
+
+router.patch('/users/update/', userController.updateDoc, (req, res, err) => {
+  res.status(200).json(res.locals.doc)
+})
 
 module.exports = router;

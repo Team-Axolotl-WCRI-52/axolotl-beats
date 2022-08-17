@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {use} from 'react';
 
 const EmbeddedPlayer = props => {
   const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`

@@ -36,9 +36,9 @@ const PlaylistForm = (props) => {
       body: JSON.stringify(requestData),
     };
     // declare const for endpoint to submit playlist form data to
-    const playlistSubmitUrl = '/api/getPlaylist';
+    // const playlistSubmitUrl = '/api/getPlaylist';
 
-    /*
+    
     fetch('/api/getPlaylist', requestOptions)
     .then((data) => data.json())
     .then((playlist) => {
@@ -49,9 +49,10 @@ const PlaylistForm = (props) => {
     // handle errors
     .catch((error) => { 
       console.log('Fetch error is:', error)
-    )}
-    */
+  })
+    
    
+    /*
     // attempting to do fetch with async / await and try/catch block 
     try {
       // make request to backend and save response to const
@@ -65,14 +66,14 @@ const PlaylistForm = (props) => {
       // potentially redirect user as well to new landing page with Spotify iFrame component
       // invoke props.updatePlaylistId, passing in test ID
       props.updatePlaylistId(playlist);
-
+      
       // display button
       setShowButton(true);
 
 
     } catch (error) { // handle errors
       console.log('Fetch error is:', error);
-    }
+    } */
     
   }
 
