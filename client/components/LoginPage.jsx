@@ -1,34 +1,25 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
+import { useNavigate, Redirect } from 'react-router-dom';
 
-class LoginPage extends Component {
-  constructor () {
-    super()
-  }; 
-  // loginEvent = () => {
+const LoginPage = () => {
 
-  //   fetch('/api/auth')
-  //     .then(response => response.json())
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err, 'auth fetch failed'))
-  //   }
-  
-  // workaround: set button to link to frontend path "/api/auth"
-  // this represents a "GET" request that is proxied to localhost:3000/api/auth on backend
-  // gets around CORS issue for now, but may need to address CORS for user input form submission
+  const navigate = useNavigate();
 
-  render() {
+  const getUserData = () => {
+    // console.log('button is clicked!');
+    // possible stretch feature method: create new window for oauth and redirect on success
+    }
+
     return (
       <div id="loginPage">
-      <h3>Login to Spotify below to continue</h3>
-      <a href='http://localhost:8080/api/auth'><button className="login" onClick={this.loginEvent}>Spotify Login</button></a>
-      </div> 
+        <h3>Login to Spotify below to continue</h3>
+        <a href='http://localhost:3000/api/auth'>
+        <button className="login" onClick={getUserData} >Spotify Login</button>
+        </a>
+      </div>
     )
   };
-}
 
 
 
-
-
-export default LoginPage
+  export default LoginPage;

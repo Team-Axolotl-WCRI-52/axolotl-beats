@@ -103,8 +103,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What genre are you in the mood for?<br/>
-            <select className='dropdown-menu'>
-              <option disabled selected>Select Your Genre</option>
+            <select className='dropdown-menu' defaultValue='Select Your Genre'>
+              <option disabled >Select Your Genre</option>
               <option value="electronic">Electronic</option>
               <option value="k-pop">K-Pop</option>
               <option value="work-out">Workout</option>
@@ -117,8 +117,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What tempo would you like your playlist to follow?<br/>
-            <select className='dropdown-menu'>
-              <option disabled selected>Select Your Tempo</option>
+            <select className='dropdown-menu' defaultValue='Select Your Tempo'>
+              <option disabled >Select Your Tempo</option>
               <option value="fast">Fast</option>
               <option value="slow">Slow</option>
             </select>
@@ -128,8 +128,8 @@ const PlaylistForm = (props) => {
         <div className='dropdown-container'>
           <label className='dropdown-label'>
           How long would you like your playlist to last?<br/>
-            <select className='dropdown-menu'>
-              <option disabled selected>Select Your Duration</option>
+            <select className='dropdown-menu' defaultValue='Select Your Duration'>
+              <option disabled>Select Your Duration</option>
               <option value="30">30 minutes</option>
               <option value="60">60 minutes</option>
               <option value="90">90 minutes</option>
