@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const EmbeddedPlayer = props => {
   const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`
@@ -6,12 +7,17 @@ const EmbeddedPlayer = props => {
     <div>
       <iframe
         src={uri}
-        width="50%"
+        width="100%"
         height="380"
         //allow="autoplay; clipboard-write; encrypted-media;"
       >
       </iframe>
-    </div>
+
+
+      <div className='makePlaylist-container'>
+        <Link to='/playlistform'><button className='makePlaylist'>Make a new playlist!</button></Link>
+        </div>
+      </div>
   )
 }
 
