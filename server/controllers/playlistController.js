@@ -91,7 +91,8 @@ playlistController.getDynamicRecommendations = async (req, res, next) => {
   console.log('starting generation of new dynamic recommendations')
   while (currentDurationMin < targetDurationMin) {
     // determine criteria based on user input and current playlist duration
-    console.log(`getting criteria at ${currentDurationMin} (target duration: ${targetDurationMin})`)
+    console.log("*****************************************")
+    console.log(`getting criteria at ${currentDurationMin} min (target duration: ${targetDurationMin})`)
     const criteria = getCriteria(currentDurationMin, segments);
 
     const options = {
@@ -101,13 +102,13 @@ playlistController.getDynamicRecommendations = async (req, res, next) => {
       max_duration_ms: oneMinInMS * 15, 
     }
     try {
-      console.log(`calling spotify api with criteria ${criteria.toString()}`)
+      console.log(`calling spotify api with criteria ${JSON.stringify(criteria)}`)
       const response = await spotifyApi.getRecommendations(options);
       if (response.body.tracks.length === 0) {
         next({ message: 'oops no results' });
       }
       const track = response.body.tracks[0];
-      console.log(`new track: ${track}`)
+      console.log(`new track: ${track.name}`)
       // TODO check that song is not a duplicate
       // push to playlist array
       trackList.push(track); // push track object to trackList array
