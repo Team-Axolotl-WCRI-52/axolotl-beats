@@ -8,7 +8,6 @@ const router = express.Router();
 // redirect to spotify auth form for user sign in/authentication
 
 router.get('/auth', (req, res) => {
-  // console.log('inside backend request');
   const scope = 'playlist-modify-public';
   // STRETCH: add state prop for additional validation
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -22,20 +21,19 @@ router.get('/auth', (req, res) => {
 
 // obtain access token and refresh token using code from user auth
 // use instance of wrapper object "spotifyApi" and its methods to get and store tokens
-
 router.get('/getToken', (req, res) => {
   console.log('redirected to next step');
   const { code } = req.query;
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true
+  }
 
   spotifyApi.authorizationCodeGrant(code)
     .then(data => {
-      // console.log(data.body);
       const { access_token, refresh_token } = data.body;
-      // STRETCH: maybe setInterval and refreshToken here
-      // spotifyApi.setAccessToken(access_token);
-      // spotifyApi.setRefreshToken(refresh_token);
-      res.cookie('access', access_token).cookie('refresh', refresh_token);
-      console.log('big obj:', spotifyApi);
+      res.cookie('access', access_token, cookieOptions)
+         .cookie('refresh', refresh_token, cookieOptions);
       res.redirect('/#/playlistform');
     })
     .catch(err => {
@@ -45,10 +43,10 @@ router.get('/getToken', (req, res) => {
 
 router.post('/getPlaylist',
   playlistController.createPlaylist,
-  playlistController.getRecommendations,
+  playlistController.getStaticRecommendations,
   playlistController.addTracks,
   (req, res) => {
-    res.status(200).json(res.locals.playlistId)
+    res.status(200).json(res.locals.newPlaylist)
   }
 );
 
@@ -57,7 +55,7 @@ router.post('/getDynamicPlaylist',
   playlistController.getDynamicRecommendations,
   playlistController.addTracks,
   (req, res) => {
-    res.status(200).json(res.locals.playlistId)
+    res.status(200).json(res.locals.newPlaylist)
   }
 );
 
