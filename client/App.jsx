@@ -7,6 +7,7 @@ import EmbeddedPlayer from './components/EmbeddedPlayer.jsx';
 import TempReroute from './components/TempReroute.jsx';
 
 import './stylesheets/styles.scss';
+import './stylesheets/app.css';
 
 
 // make App stateful -> class component
@@ -40,7 +41,7 @@ class App extends Component {
     return (
       <Router>
         <div id='app'>
-          <nav className = 'flex flex-row flex-end'>
+          <nav id='navBar'>
               <ul className="navList">
                 <li className='links' id='logoutButton' ><a className='bye' href='http://google.com'>Logout</a></li>
               </ul>
