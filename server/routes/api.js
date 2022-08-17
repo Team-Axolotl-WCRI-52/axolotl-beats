@@ -28,25 +28,10 @@ router.get('/auth', (req, res) => {
 
 router.get('/getToken',
   userController.getUserToken, 
+  userController.getSpotifyId,
+  userController.checkIfUserExists,
   (req, res) => {
     res.status(200).redirect('/#/playlistform');
-  // console.log('redirected to next step');
-  // const { code } = req.query;
-
-  // spotifyApi.authorizationCodeGrant(code)
-  //   .then(data => {
-  //     console.log('authorizationCodeGrant data.body: ', data.body);
-  //     const { access_token, refresh_token } = data.body;
-  //     // STRETCH: maybe setInterval and refreshToken here
-  //     // spotifyApi.setAccessToken(access_token);
-  //     // spotifyApi.setRefreshToken(refresh_token);
-  //     res.cookie('access', access_token).cookie('refresh', refresh_token);
-  //     console.log('big obj:', spotifyApi);
-  //     res.redirect('/#/playlistform');
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //     res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
 });
 
 router.post('/getPlaylist',

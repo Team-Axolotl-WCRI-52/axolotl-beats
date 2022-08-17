@@ -4,7 +4,7 @@ const spotifyApi = require('../utils/apiWrapper');
 
 const userController = {}
 
-
+//This calls the Spotify API********
 userController.getUserToken = (req, res, next) => {
     console.log('userController.getUserToken executed');
     const { code } = req.query;
@@ -15,8 +15,8 @@ userController.getUserToken = (req, res, next) => {
       console.log('authorizationCodeGrant data.body: ', data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
-      // spotifyApi.setAccessToken(access_token);
-      // spotifyApi.setRefreshToken(refresh_token);
+      spotifyApi.setAccessToken(access_token);
+      spotifyApi.setRefreshToken(refresh_token);
       res.cookie('access', access_token).cookie('refresh', refresh_token);
       console.log('userController.getUserToken spotifyApi: ', spotifyApi);
       next()
@@ -26,11 +26,34 @@ userController.getUserToken = (req, res, next) => {
       res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
 }
 
-userController.checkIfUserExists = (req, res, next) => {
-    
+//This calls the Spotify API********
+//call the Spotify API to get the currently logged in user's "spotify_id"
+userController.getSpotifyId = (req, res, next) => {
+    console.log('userController.getSpotifyId');
+    spotifyApi.getMe()
+      .then((data) => {
+        res.locals.spotify_id = data.body.id;
+        res.locals.display_name = data.body.display_name;
+        return next();
+      })
+      .catch(err => {console.log('userController.getSpotifyId err: ', err)})
 }
 
+//Queries DB*********
+//this queries the DB to see if a user with a particular spotify_id exists
+userController.checkIfUserExists = (req, res, next) => {
+    const spotify_id = res.locals.spotify_id
+    console.log('userController.checkIfUserExists res.locals.spotify_id: ', res.locals.spotify_id)
+    User.findOneAndUpdate({spotify_id}, {spotify_id}, {upsert:true, new:true})
+    .then((doc)=>{
+        res.locals.doc = doc;
+        console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
+        res.locals.redirect = '/#/playlistform'
+        next();
+    })
+}
 
+//Queries DB*********
 //getAllUsers (find)
 userController.getAllUsers = (req, res, next) => {
     User.find({})
@@ -42,7 +65,7 @@ userController.getAllUsers = (req, res, next) => {
     })
 }
 
-
+//Queries DB*********
 //getDoc (findOne)
 userController.getDoc = (req, res, next) => {
     const { spotify_id } = req.body
@@ -57,7 +80,7 @@ userController.getDoc = (req, res, next) => {
     })
 }
 
-
+//Queries DB*********
 //createDoc (create)
 userController.createDoc = (req, res, next) => {
     const spotify_id = "spotify_id"
@@ -72,7 +95,7 @@ userController.createDoc = (req, res, next) => {
     })
 }
 
-
+//Queries DB*********
 //updateDoc (findOneAndUpdate)
 userController.updateDoc = (req, res, next) => {
     const {spotify_id, playlist_id} = req.body
