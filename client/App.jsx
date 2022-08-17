@@ -8,6 +8,7 @@ import TempReroute from './components/TempReroute.jsx';
 
 import './stylesheets/styles.scss';
 
+
 // make App stateful -> class component
 // define a handler that updates state (setState) 
 class App extends Component {
@@ -39,7 +40,7 @@ class App extends Component {
     return (
       <Router>
         <div id='app'>
-          <nav id='navBar'>
+          <nav className = 'flex flex-row flex-end'>
               <ul className="navList">
                 <li className='links' id='logoutButton' ><a className='bye' href='http://google.com'>Logout</a></li>
               </ul>
