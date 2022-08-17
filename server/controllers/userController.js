@@ -43,8 +43,9 @@ userController.getSpotifyId = (req, res, next) => {
 //this queries the DB to see if a user with a particular spotify_id exists
 userController.checkIfUserExists = (req, res, next) => {
     const spotify_id = res.locals.spotify_id
+    const display_name = res.locals.display_name
     console.log('userController.checkIfUserExists res.locals.spotify_id: ', res.locals.spotify_id)
-    User.findOneAndUpdate({spotify_id}, {spotify_id}, {upsert:true, new:true})
+    User.findOneAndUpdate({spotify_id}, {spotify_id, display_name}, {upsert:true, new:true})
     .then((doc)=>{
         res.locals.doc = doc;
         console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)

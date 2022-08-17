@@ -21,18 +21,28 @@ router.get('/auth', (req, res) => {
       // show_dialog: true,
       scope
     }));
-  });
+});
 
 // obtain access token and refresh token using code from user auth
 // use instance of wrapper object "spotifyApi" and its methods to get and store tokens
 
 router.get('/getToken',
-  userController.getUserToken, 
+  userController.getUserToken,
+  // userController.getSpotifyId,
+  // userController.checkIfUserExists,
+  (req, res) => {
+    res.status(200).redirect('/#/playlistform');
+  });
+
+// input: nothing
+// output: {spotify_id, display_name, playlist_id }
+// this needs to be connected to frontend!!
+router.get('/userInfo',
   userController.getSpotifyId,
   userController.checkIfUserExists,
   (req, res) => {
-    res.status(200).redirect('/#/playlistform');
-});
+    res.status(200).json(res.locals.doc);
+  });
 
 router.post('/getPlaylist',
   playlistController.createPlaylist,
@@ -41,8 +51,7 @@ router.post('/getPlaylist',
   // new middleware to save newlycreated playlist id (res.locals.playlist_id) & spotify user id (res.locals.spotid)
   (req, res) => {
     res.status(200).json(res.locals.playlistId)
-  }
-);
+  });
 
 /*
   STRETCH consideration: need to invoke wrapper method to refreshToken after token expires
@@ -52,7 +61,7 @@ router.post('/getPlaylist',
 router.get('/users/all', userController.getAllUsers, (req, res, err) => {
   //res.send(200).json(res.locals.users)
   res.status(200).json(res.locals.data);
-})
+});
 
 // retrieve user doc based on spotify_id
 // input: req.body that includes spotify_id
@@ -65,7 +74,7 @@ router.get('/users/all', userController.getAllUsers, (req, res, err) => {
 }*/
 router.post('/users/', userController.getDoc, (req, res, err) => {
   res.status(200).json(res.locals.doc)
-})
+});
 
 //Created a new document at 'spotify_id'
 //Input: req.body that includes spotify_id
@@ -76,11 +85,11 @@ router.post('/users/', userController.getDoc, (req, res, err) => {
   "playlist_id": "1234567",
   "__v": 0
 }*/
-router.post('/users/create/', 
-  userController.createDoc, 
+router.post('/users/create/',
+  userController.createDoc,
   (req, res, err) => {
-  res.status(200).send(res.locals.doc);
-})
+    res.status(200).send(res.locals.doc);
+  });
 
 //Updating a document at 'spotify_id"
 // input: req.body that includes spotify_id, and the new playlist_id
@@ -93,6 +102,6 @@ router.post('/users/create/',
 }*/
 router.patch('/users/update/', userController.updateDoc, (req, res, err) => {
   res.status(200).json(res.locals.doc)
-})
+});
 
 module.exports = router;
