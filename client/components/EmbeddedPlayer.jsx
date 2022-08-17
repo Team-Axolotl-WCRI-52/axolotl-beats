@@ -3,20 +3,26 @@ import React, {useEffect, useState} from 'react';
 const EmbeddedPlayer = props => {
   const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`
 
-
+ 
 
   useEffect(()=>{
     //do a PATCH and add props.playlistId
-    fetch('/api/userInfo')
-    .then((data) => data.json())
-    .then((user) => {
-      console.log('user info:', user);
-      // update state to put in spotify_id, playlist_id(from db history), username
-      props.updateUserInfo(user);
-    })
-    .catch((error) => { 
-      console.log('Fetch error is:', error)
-    })
+    if(document.cookie){
+      fetch('/api/userInfo')
+      .then((data) => data.json())
+      .then((user) => {
+        console.log('user info:', user);
+        // update state to put in spotify_id, playlist_id(from db history), username
+        props.updateUserInfo(user);
+        props.updateIsLoggedIn(true)
+      })
+      .catch((error) => { 
+        console.log('Fetch error is:', error)
+      })
+    }
+    else{
+      console.log('You are not logged in!');
+    }
   }, [])
 
   //once a user logs in, we need to receive a spotify_id back from the Spotify API
@@ -36,9 +42,10 @@ const EmbeddedPlayer = props => {
         <p>No playlist here!</p>
       </div>
     );
-  } else {
-    // document.getElementById('iframe-player').volume = 0.2
-  }  ;
+  } 
+  // else {
+  //   // document.getElementById('iframe-player').volume = 0.2
+  // }  ;
   return(
     <div>
       <h1>Welcome {props.username}</h1>
@@ -48,7 +55,7 @@ const EmbeddedPlayer = props => {
         width="100%"
         height="380"
         //allow="autoplay; clipboard-write; encrypted-media;"
-      >
+      >Test
       </iframe>
       
     </div>
