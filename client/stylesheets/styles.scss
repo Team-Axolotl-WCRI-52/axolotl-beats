@@ -5,6 +5,10 @@ $secondary-color: #ffe5d9ff;
 $spotify-color: rgb(200, 235, 214);
 $font-color: rgb(134, 109, 116);
 
+body{
+  margin:0;
+}
+
 #navBar {
   display: flex;
   flex-direction: row;
@@ -24,7 +28,8 @@ $font-color: rgb(134, 109, 116);
   align-items: center;
   height: 100vh;
   color: $font-color;
-  width: 100%
+  width: 100%;
+  margin:0;
 };
 
 #title {

@@ -38,6 +38,20 @@ const PlaylistForm = (props) => {
     // declare const for endpoint to submit playlist form data to
     const playlistSubmitUrl = '/api/getPlaylist';
 
+    /*
+    fetch('/api/getPlaylist', requestOptions)
+    .then((data) => data.json())
+    .then((playlist) => {
+      console.log('playlist id:', playlist);
+      props.updatePlaylistId(playlist);
+      setShowButton(true);
+    })
+    // handle errors
+    .catch((error) => { 
+      console.log('Fetch error is:', error)
+    )}
+    */
+   
     // attempting to do fetch with async / await and try/catch block 
     try {
       // make request to backend and save response to const

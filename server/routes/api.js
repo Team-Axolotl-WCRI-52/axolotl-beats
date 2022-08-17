@@ -17,6 +17,7 @@ router.get('/auth', (req, res) => {
       client_id: process.env.CLIENT_ID,
       // redirect_uri: process.env.REDIRECT_URI,
       redirect_uri: 'http://localhost:8080/api/getToken',
+      // show_dialog: true,
       scope
     }));
   });
