@@ -22,24 +22,33 @@ const MenuProps = {
 
 const names = ['k-pop', 'jazz', 'classical', 'country', 'rap', '80s'];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, genreName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      genreName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-export default function Genres() {
+function Genres(props) {
+  const { id, playlistData, setplaylistData } = props;
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [genreName, setGenreName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+
+    const updateState = [...playlistData];
+    updateState[id].genres = [
+      typeof value === 'string' ? value.split(',') : value,
+    ];
+
+    setplaylistData(updateState);
+
+    setGenreName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
@@ -48,12 +57,12 @@ export default function Genres() {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id='demo-multiple-chip-label'>Chip</InputLabel>
+        <InputLabel id='demo-multiple-chip-label'>Select Genres</InputLabel>
         <Select
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
           multiple
-          value={personName}
+          value={playlistData[id].genres}
           onChange={handleChange}
           input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
           renderValue={(selected) => (
@@ -69,7 +78,7 @@ export default function Genres() {
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, personName, theme)}
+              style={getStyles(name, genreName, theme)}
             >
               {name}
             </MenuItem>
@@ -79,3 +88,5 @@ export default function Genres() {
     </div>
   );
 }
+
+export default Genres;
