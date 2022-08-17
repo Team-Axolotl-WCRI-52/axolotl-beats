@@ -1,6 +1,35 @@
 //server/controllers/userController.js
 const User = require('../models/userModel.js');
+const spotifyApi = require('../utils/apiWrapper');
+
 const userController = {}
+
+
+userController.getUserToken = (req, res, next) => {
+    console.log('userController.getUserToken executed');
+    const { code } = req.query;
+    console.log('code is: ', code);
+
+  spotifyApi.authorizationCodeGrant(code)
+    .then(data => {
+      console.log('authorizationCodeGrant data.body: ', data.body);
+      const { access_token, refresh_token } = data.body;
+      // STRETCH: maybe setInterval and refreshToken here
+      // spotifyApi.setAccessToken(access_token);
+      // spotifyApi.setRefreshToken(refresh_token);
+      res.cookie('access', access_token).cookie('refresh', refresh_token);
+      console.log('userController.getUserToken spotifyApi: ', spotifyApi);
+      next()
+    })
+    .catch(err => {
+      console.log('userController.getUserToken err: ', err)
+      res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
+}
+
+userController.checkIfUserExists = (req, res, next) => {
+    
+}
+
 
 //getAllUsers (find)
 userController.getAllUsers = (req, res, next) => {
@@ -11,9 +40,6 @@ userController.getAllUsers = (req, res, next) => {
         res.locals.data = data;
         next();
     })
-    // () => {
-    //     console.log('next in get all users');
-    // }
 }
 
 
@@ -34,7 +60,7 @@ userController.getDoc = (req, res, next) => {
 
 //createDoc (create)
 userController.createDoc = (req, res, next) => {
-    const spotify_id = "createDoc Id1"
+    const spotify_id = "spotify_id"
     console.log('userController.createDoc req.params.id: ', spotify_id)
     const playlist_id = "playlistId goes here";
     User.create({spotify_id, playlist_id}, (err, doc) => {
