@@ -44,13 +44,15 @@ router.get('/userInfo',
     res.status(200).json(res.locals.doc);
   });
 
-router.post('/getPlaylist',
+router.post('/createPlaylist',
   playlistController.createPlaylist,
+  playlistController.updateDoc,
   playlistController.getRecommendations,
   playlistController.addTracks,
   // new middleware to save newlycreated playlist id (res.locals.playlist_id) & spotify user id (res.locals.spotid)
   (req, res) => {
-    res.status(200).json(res.locals.playlistId)
+    // res.status(200).json(res.locals.playlistId)
+    res.status(200).json(res.locals.doc)
   });
 
 /*
@@ -74,7 +76,7 @@ router.get('/users/all',
   "playlist_id": "1234567",
   "__v": 0
 }*/
-router.post('/users/',
+router.post('/getPlaylist',
   userController.getDoc,
   (req, res, err) => {
     res.status(200).json(res.locals.doc)

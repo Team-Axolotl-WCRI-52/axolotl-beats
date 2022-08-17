@@ -29,7 +29,7 @@ class App extends Component {
   updatePlaylistId(id) {
     console.log('argument id is:', id);
     // should update state to set playlistId to the one returned from the form 
-    this.setState({ playlistId: id })
+    this.setState({ playlistId: id });
     // re-render?
     console.log('this.state.playlistId is: ', this.state.playlistId);
     // fetch post 
@@ -46,35 +46,13 @@ class App extends Component {
       //else we have an empty string/array variable and render nothing on our page(most recently created playlist page)
   }
 
-  updateUserInfo() {
-  // 'access=BQBQQL7-gOAWVOY2ITvMDesw9LXrLmO7ZPQnJHO8jkGmJ9ntmR-pKFBGCpPi6sT0y8P2Lro6QGMiEpkoGah4mrd8A0nEMG_KZtbtvVisXEfInL5m6a5GZqjgoV9SSZdaIHPIOY5V--iOpVMWCBHBLmhNwEYhULhCW0tFQMPNmzHC18ipvqWfV04UwisEtrYEHOq0p2V0jgT4Vg; refresh=AQAuQmh4Fl6FpgS_v7TImxTF6BsPoDgz5pi5OpsVyPkEJzmNQ0U2j4I4NTF5TxAJ5mhZltypKREvozXBfzKn2_H2q2KGUDBWiGgm59aT1VFiJe9D3GsP9LygRpNKBNerbyU'
-    // need to be checked!!
-    // const cookieValue = document.cookie
-    //   .split('; ')
-    //   .find((row) => row.startsWith('access='))
-    //   ?.split('=')[1];
-    // console.log('COOKIE is: ', cookieValue);
-
-    // const getOptions = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': cookieValue,
-    //   'Host': 'api.spotify.com'
-    // }
-
+  updateUserInfo(user) {
     this.setState({
-      playlistId: 'Initial value',
-      username: undefined,      
-      spotify_id: undefined,
-    })
-
-
-
-    // fetch('api.spotify.com/v1/me HTTP/1.1', getOptions)
-    // .then((data) => data.json())
-    // .then((data) => {
-    //   // fetch('backend', postOptions)      
-    //   console.log('fromspotify: ', data)
-    // })
+      playlistId: user.playlist_id,
+      username: user.display_name,      
+      spotify_id: user.spotify_id,
+    });
+    console.log('this is the state now:', this.state);
   }
 
 
@@ -89,7 +67,7 @@ class App extends Component {
           <Navbar />
           <Routes>
             <Route path='/' element={<LoginPage />}></Route>
-            <Route path='/player' element={<EmbeddedPlayer playlistId={this.state.playlistId} username={this.state.username} spotify_id={this.state.spotify_id} />}></Route>
+            <Route path='/player' element={<EmbeddedPlayer updateUserInfo={this.updateUserInfo} playlistId={this.state.playlistId} username={this.state.username} spotify_id={this.state.spotify_id} />}></Route>
             <Route path='/playlistform' element={<PlaylistPage updatePlaylistId={this.updatePlaylistId} />}></Route>
           </Routes>
         </div>
@@ -116,3 +94,27 @@ export default App;
 // If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT
 // If-None-Match: "c561c68d0ba92bbeb8b0fff2a9199f722e3a621a"
 // Cache-Control: max-age=0
+
+//getuserid
+  // 'access=BQBQQL7-gOAWVOY2ITvMDesw9LXrLmO7ZPQnJHO8jkGmJ9ntmR-pKFBGCpPi6sT0y8P2Lro6QGMiEpkoGah4mrd8A0nEMG_KZtbtvVisXEfInL5m6a5GZqjgoV9SSZdaIHPIOY5V--iOpVMWCBHBLmhNwEYhULhCW0tFQMPNmzHC18ipvqWfV04UwisEtrYEHOq0p2V0jgT4Vg; refresh=AQAuQmh4Fl6FpgS_v7TImxTF6BsPoDgz5pi5OpsVyPkEJzmNQ0U2j4I4NTF5TxAJ5mhZltypKREvozXBfzKn2_H2q2KGUDBWiGgm59aT1VFiJe9D3GsP9LygRpNKBNerbyU'
+    // need to be checked!!
+    // const cookieValue = document.cookie
+    //   .split('; ')
+    //   .find((row) => row.startsWith('access='))
+    //   ?.split('=')[1];
+    // console.log('COOKIE is: ', cookieValue);
+
+    // const getOptions = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': cookieValue,
+    //   'Host': 'api.spotify.com'
+    // }
+
+    
+
+    // fetch('api.spotify.com/v1/me HTTP/1.1', getOptions)
+    // .then((data) => data.json())
+    // .then((data) => {
+    //   // fetch('backend', postOptions)      
+    //   console.log('fromspotify: ', data)
+    // })

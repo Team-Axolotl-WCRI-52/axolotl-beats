@@ -25,7 +25,7 @@ const PlaylistForm = (props) => {
 
     // package form-data into an object
     const requestData = { playlistName, playlistDescription, genre, tempo, duration };
-    console.log(requestData);
+    console.log('PlaylistForm.jsx requestData: ', requestData);
     // get request to backend, with body as requestData
     // use await
     const requestOptions = {
@@ -35,15 +35,14 @@ const PlaylistForm = (props) => {
       },
       body: JSON.stringify(requestData),
     };
-    // declare const for endpoint to submit playlist form data to
-    // const playlistSubmitUrl = '/api/getPlaylist';
+
 
     
-    fetch('/api/getPlaylist', requestOptions)
+    fetch('/api/createPlaylist', requestOptions)
     .then((data) => data.json())
-    .then((playlist) => {
-      console.log('playlist id:', playlist);
-      props.updatePlaylistId(playlist);
+    .then((doc) => {
+      console.log('PlaylistForm.jsx,after fetch => doc.playlist_id:', doc.playlist_id);
+      props.updatePlaylistId(doc.playlist_id);
       setShowButton(true);
     })
     // handle errors

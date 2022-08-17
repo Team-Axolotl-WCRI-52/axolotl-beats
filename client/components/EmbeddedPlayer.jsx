@@ -12,7 +12,7 @@ const EmbeddedPlayer = props => {
     .then((user) => {
       console.log('user info:', user);
       // update state to put in spotify_id, playlist_id(from db history), username
-      // props.updateUserInfo(user);
+      props.updateUserInfo(user);
     })
     .catch((error) => { 
       console.log('Fetch error is:', error)
@@ -28,7 +28,7 @@ const EmbeddedPlayer = props => {
       //return that document to the front end
     
 
-
+  console.log('this is many props',props.playlistId, props.username, props.spotify_id);
   return(
     <div>
       <iframe
