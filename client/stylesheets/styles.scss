@@ -21,6 +21,7 @@ $font-color: rgb(134, 109, 116);
   background-color: $primary-color;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   color: $font-color;
   width: 100%
 };

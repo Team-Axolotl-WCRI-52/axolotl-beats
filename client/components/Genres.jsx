@@ -20,7 +20,17 @@ const MenuProps = {
   },
 };
 
-const names = ['k-pop', 'jazz', 'classical', 'country', 'rap', '80s'];
+const names = [
+  'k-pop',
+  'jazz',
+  'classical',
+  'country',
+  'rap',
+  '80s',
+  'rock',
+  'dance',
+  'funk',
+];
 
 function getStyles(name, genreName, theme) {
   return {
@@ -34,17 +44,17 @@ function getStyles(name, genreName, theme) {
 function Genres(props) {
   const { id, playlistData, setplaylistData } = props;
   const theme = useTheme();
-  const [genreName, setGenreName] = React.useState([]);
+  const [genreName, setGenreName] = React.useState(playlistData[id].genres);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
+    console.log('value', value);
+
     const updateState = [...playlistData];
-    updateState[id].genres = [
-      typeof value === 'string' ? value.split(',') : value,
-    ];
+    updateState[id].genres = value;
 
     setplaylistData(updateState);
 

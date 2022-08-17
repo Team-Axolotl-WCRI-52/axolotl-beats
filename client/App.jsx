@@ -46,8 +46,8 @@ function App() {
       ending_bpm_target: 120,
       genres: ['rock', 'dance', 'funk'],
       custom_params: ['danciness'],
-      custom_param_starting_values: [50],
-      custom_param_ending_values: [90],
+      custom_param_starting_values: [0.5],
+      custom_param_ending_values: [0.9],
     },
     {
       start_time: 45,
@@ -56,8 +56,8 @@ function App() {
       ending_bpm_target: 130,
       genres: ['rock', 'dance', 'funk'],
       custom_params: ['danciness'],
-      custom_param_starting_values: [90],
-      custom_param_ending_values: [95],
+      custom_param_starting_values: [0.9],
+      custom_param_ending_values: [0.95],
     },
   ]);
 
