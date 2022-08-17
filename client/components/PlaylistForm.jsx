@@ -71,7 +71,7 @@ const PlaylistForm = (props) => {
   };
 
   return (
-    <div>
+    <div className='border-2 border-sky-500 border-indigo-500 rounded-md'>
       <Breakpoints
         id={id}
         playlistData={playlistData}

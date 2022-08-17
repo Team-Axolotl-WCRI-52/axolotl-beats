@@ -18,23 +18,18 @@ function Breakpoints(props) {
       <h3 className='py-3'>At Minute: </h3>
       <input
         name='minuteInput'
-        type='number'
+        value={playlistData[id].end_time}
+        type='text'
         onChange={(e) => {
           const updateState = [...playlistData];
-          // if (updateState[id].start_time === 0) {
-          //   updateState[id].end_time = e.target.value * 1;
-          //   updateState[id + 1].start_time = updateState[id].end_time;
-          // } else {
-          //   updateState[id].end_time = e.target.value * 1;
-          //   updateState[id + 1].start_time = updateState[id].end_time;
-          // }
 
           updateState[id].end_time = e.target.value * 1;
-          updateState[id + 1].start_time = updateState[id].end_time;
+          if (updateState[id + 1]) {
+            updateState[id + 1].start_time = updateState[id].end_time;
+          }
 
           setplaylistData(updateState);
         }}
-        value={time}
       ></input>
       <br></br>
       <div className='m-3'>
@@ -51,7 +46,7 @@ function Breakpoints(props) {
             }
             setplaylistData(updateState);
           }}
-          defaultValue={playlistData[id].starting_bpm_target}
+          defaultValue={playlistData[id].ending_bpm_target}
           min={30}
           max={200}
           valueLabelDisplay='on'
@@ -73,7 +68,7 @@ function Breakpoints(props) {
             }
             setplaylistData(updateState);
           }}
-          defaultValue={playlistData[id].custom_param_starting_values[0] * 100}
+          defaultValue={playlistData[id].custom_param_ending_values[0] * 100}
           min={0}
           max={100}
           step={10}
