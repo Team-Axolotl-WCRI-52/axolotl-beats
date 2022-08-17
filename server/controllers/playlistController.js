@@ -10,7 +10,7 @@ playlistController.createPlaylist = async (req, res, next) => {
     spotifyApi.setRefreshToken(req.cookies.refresh);
     const data = await spotifyApi.createPlaylist(
       `${playlistName}`,
-      {'description': `${playlistDescription}`, 'public': true}
+      { 'description': `${playlistDescription}`, 'public': true }
     );
     res.locals.playlistId = data.body.id;
     return next();
@@ -18,7 +18,7 @@ playlistController.createPlaylist = async (req, res, next) => {
     return next({
       log: 'Failed to create new playlist',
       status: err.statusCode,
-      message: { Error: 'Failed to create new playlist'}
+      message: { Error: 'Failed to create new playlist' }
     });
   }
 };
@@ -29,9 +29,9 @@ playlistController.getRecommendations = async (req, res, next) => {
     const { genre, tempo, duration } = req.body;
     // convert tempo string to min/max tempo
     // determine min/max tempo for "fast" vs "slow" options
-      // fast: 160-200
-      // slow: 90-120
-      // (optional to add) meditation: 60-75 
+    // fast: 160-200
+    // slow: 90-120
+    // (optional to add) meditation: 60-75 
     let tempoOption;
     if (tempo === 'fast') {
       tempoOption = {
@@ -51,9 +51,9 @@ playlistController.getRecommendations = async (req, res, next) => {
     // const targetPlaylistLengthInMinutes = 10; // for testing shorter playlist
 
     // approach 1: designate set target duration for each track, use math to figure out number of tracks
-      // pro: only one API call needed, relatively fast
-      // con: based on how target_duration works in Spotify API,
-        // all tracks would be exactly that duration (e.g. 4:00) or very close
+    // pro: only one API call needed, relatively fast
+    // con: based on how target_duration works in Spotify API,
+    // all tracks would be exactly that duration (e.g. 4:00) or very close
 
     // const targetTrackDurationInMinutes = 4;
     // const durationOption = {
@@ -69,16 +69,16 @@ playlistController.getRecommendations = async (req, res, next) => {
     // res.locals.recommendations = tracksArr.map(el => el.uri);
 
     // approach 2: set a random target duration for each track based on some min/max length
-      // then use a loop to call and obtain each track of varying duration individually
-      // pro: playlist will have tracks of varying lengths
-      // con: need multiple calls to API for each playlist:
-        // UX concerns about time complexity // this does take several seconds or more for 30-min+ playlist
-        // also: API rate limit concerns since we need multiple calls per playlist
+    // then use a loop to call and obtain each track of varying duration individually
+    // pro: playlist will have tracks of varying lengths
+    // con: need multiple calls to API for each playlist:
+    // UX concerns about time complexity // this does take several seconds or more for 30-min+ playlist
+    // also: API rate limit concerns since we need multiple calls per playlist
 
     // helper func: takes in min/max track length in minutes, returns random length in between, in ms
     const getRandomDuration = (min, max) => {
       const minDurationInMS = min * 60000;
-      const maxDurationInMS = max * 60000; 
+      const maxDurationInMS = max * 60000;
       const range = maxDurationInMS - minDurationInMS;
       return Math.floor((Math.random() * range) + minDurationInMS);
     };
@@ -113,7 +113,7 @@ playlistController.getRecommendations = async (req, res, next) => {
     return next({
       log: 'Failed to get seed artists for Spotify recommendations',
       status: err.statusCode,
-      message: { Error: 'Failed to get seed artists for Spotify recommendations'}
+      message: { Error: 'Failed to get seed artists for Spotify recommendations' }
     });
   }
 }

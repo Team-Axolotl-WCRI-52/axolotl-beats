@@ -104,3 +104,7 @@ dist
 .tern-port
 
 package-lock.json
+package-lock.json
+/build
+build/bundle.js
+package-lock.json
