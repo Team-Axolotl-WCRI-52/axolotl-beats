@@ -6,7 +6,7 @@ const PlaylistPage = (props) => {
   return (
   <div id='formPage'>
     <h1>Fill out the form below to generate a new playlist</h1>
-    <PlaylistForm updatePlaylistId={props.updatePlaylistId}/>
+    <PlaylistForm spotify_id={props.spotify_id} updatePlaylistId={props.updatePlaylistId}/>
     {/* placeholder for Spotify component with iFrame */}
   </div>
   )

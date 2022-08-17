@@ -12,7 +12,7 @@ const EmbeddedPlayer = props => {
     .then((user) => {
       console.log('user info:', user);
       // update state to put in spotify_id, playlist_id(from db history), username
-      // props.updateUserInfo(user);
+      props.updateUserInfo(user);
     })
     .catch((error) => { 
       console.log('Fetch error is:', error)
@@ -28,10 +28,22 @@ const EmbeddedPlayer = props => {
       //return that document to the front end
     
 
-
+  console.log('this is many props',props.playlistId, props.username, props.spotify_id);
+  if (!props.playlistId){
+    return(
+      <div>
+        <br></br>
+        <p>No playlist here!</p>
+      </div>
+    );
+  } else {
+    // document.getElementById('iframe-player').volume = 0.2
+  }  ;
   return(
     <div>
+      <h1>Welcome {props.username}</h1>
       <iframe
+      id='iframe-player'
         src={uri}
         width="100%"
         height="380"

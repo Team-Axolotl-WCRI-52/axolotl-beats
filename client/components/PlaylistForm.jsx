@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const PlaylistForm = (props) => {
   // props.updatePlaylistId("TEST ARGUMENT 123324732473289");
   const [showButton, setShowButton] = useState(false);
+  const [spotify_id, setSpotify_id] = useState(props.spotify_id)
   // declare const for each of our drop downs
   // create React component for each element in drop down (stretch)
   // const genres = ['']
@@ -24,8 +25,8 @@ const PlaylistForm = (props) => {
     console.log('type of duration', typeof duration);
 
     // package form-data into an object
-    const requestData = { playlistName, playlistDescription, genre, tempo, duration };
-    console.log(requestData);
+    const requestData = { playlistName, playlistDescription, genre, tempo, duration, spotify_id };
+    console.log('PlaylistForm.jsx requestData: ', requestData);
     // get request to backend, with body as requestData
     // use await
     const requestOptions = {
@@ -35,15 +36,15 @@ const PlaylistForm = (props) => {
       },
       body: JSON.stringify(requestData),
     };
-    // declare const for endpoint to submit playlist form data to
-    // const playlistSubmitUrl = '/api/getPlaylist';
+
 
     
-    fetch('/api/getPlaylist', requestOptions)
+    fetch('/api/createPlaylist', requestOptions)
     .then((data) => data.json())
-    .then((playlist) => {
-      console.log('playlist id:', playlist);
-      props.updatePlaylistId(playlist);
+    .then((doc) => {
+      console.log('PlaylistForm.jsx,after fetch => doc:', doc);
+      //props.updatePlaylistId(doc.playlist_id);
+      
       setShowButton(true);
     })
     // handle errors

@@ -1,5 +1,5 @@
 const spotifyApi = require("../utils/apiWrapper");
-
+const User = require('../models/userModel.js');
 const playlistController = {};
 
 // create a new playlist in user's account 
@@ -22,6 +22,20 @@ playlistController.createPlaylist = async (req, res, next) => {
     });
   }
 };
+
+playlistController.updateDoc = (req, res, next) => {
+  const playlist_id = res.locals.playlistId;
+  const {spotify_id} = req.body;
+  console.log('playlistController.updateDoc spotify_id ', spotify_id);
+  console.log('current playlist_id is: ', playlist_id);
+  User.findOneAndUpdate({spotify_id}, {playlist_id}, {new: true}, (err, doc) => {
+    if(err){
+        return next('Error in playlistController.updateDoc: ' + JSON.stringify(err))
+    }
+    res.locals.doc = doc;
+    next()
+})
+}
 
 // get recommended tracks based on user preference
 playlistController.getRecommendations = async (req, res, next) => {
