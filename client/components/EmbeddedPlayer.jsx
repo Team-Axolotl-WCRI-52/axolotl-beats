@@ -1,7 +1,24 @@
-import React, {use} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const EmbeddedPlayer = props => {
   const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`
+
+
+
+  useEffect(()=>{
+    //do a PATCH and add props.playlistId
+  }, [])
+
+  //once a user logs in, we need to receive a spotify_id back from the Spotify API
+
+  //using the spotify_id, we need to peform a POST req to our DB to return out their document
+    //if a document with that spoitfy_id is not found 
+      //we need to create a new document with that spotify_id, and the playlist_id can be null for now
+    //else if a document is found
+      //return that document to the front end
+    
+
+
   return(
     <div>
       <iframe
