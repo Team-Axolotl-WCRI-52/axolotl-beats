@@ -29,9 +29,21 @@ const EmbeddedPlayer = props => {
     
 
   console.log('this is many props',props.playlistId, props.username, props.spotify_id);
+  if (!props.playlistId){
+    return(
+      <div>
+        <br></br>
+        <p>No playlist here!</p>
+      </div>
+    );
+  } else {
+    // document.getElementById('iframe-player').volume = 0.2
+  }  ;
   return(
     <div>
+      <h1>Welcome {props.username}</h1>
       <iframe
+      id='iframe-player'
         src={uri}
         width="100%"
         height="380"

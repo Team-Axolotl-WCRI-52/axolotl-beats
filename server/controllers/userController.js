@@ -15,10 +15,13 @@ userController.getUserToken = (req, res, next) => {
       //console.log('authorizationCodeGrant data.body: ', data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
+      // these two lines below do not get deleted between users
+      // so user A logs in, then user B logs in.
+      // User A makes a new playlist, it gets saved to user B.
       spotifyApi.setAccessToken(access_token);
       spotifyApi.setRefreshToken(refresh_token);
       res.cookie('access', access_token).cookie('refresh', refresh_token);
-      console.log('userController.getUserToken spotifyApi: ', spotifyApi);
+    //   console.log('userController.getUserToken spotifyApi: ', spotifyApi);
       next()
     })
     .catch(err => {
@@ -29,7 +32,6 @@ userController.getUserToken = (req, res, next) => {
 //This calls the Spotify API********
 //call the Spotify API to get the currently logged in user's "spotify_id"
 userController.getSpotifyId = (req, res, next) => {
-    console.log('userController.getSpotifyId');
     spotifyApi.getMe()
       .then((data) => {
         res.locals.spotify_id = data.body.id;
@@ -48,14 +50,15 @@ userController.checkIfUserExists = (req, res, next) => {
     User.findOneAndUpdate({spotify_id}, {spotify_id, display_name}, {upsert:true, new:true})
     .then((doc)=>{
         res.locals.doc = doc;
-        console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
+        // console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
         // res.locals.redirect = '/#/playlistform'
         next();
     })
 }
 
 //Queries DB*********
-//getAllUsers (find)
+// getAllUsers (find)
+// this is not used in production. Only used for testing purposes
 userController.getAllUsers = (req, res, next) => {
     User.find({})
     .exec()
@@ -109,6 +112,7 @@ userController.updateDoc = (req, res, next) => {
         next()
     })
 }
+
 
 
 module.exports = userController;
