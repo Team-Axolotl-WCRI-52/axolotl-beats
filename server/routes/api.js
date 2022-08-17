@@ -31,7 +31,7 @@ router.get('/getToken',
   // userController.getSpotifyId,
   // userController.checkIfUserExists,
   (req, res) => {
-    res.status(200).redirect('/#/playlistform');
+    res.status(200).redirect('/#/player');
   });
 
 // input: nothing
@@ -58,10 +58,12 @@ router.post('/getPlaylist',
     subproblem: how to detect token expiration? maybe when API call middleware errors
 */
 //This is only for development purposes to see all of our documents
-router.get('/users/all', userController.getAllUsers, (req, res, err) => {
-  //res.send(200).json(res.locals.users)
-  res.status(200).json(res.locals.data);
-});
+router.get('/users/all',
+  userController.getAllUsers,
+  (req, res, err) => {
+    //res.send(200).json(res.locals.users)
+    res.status(200).json(res.locals.data);
+  });
 
 // retrieve user doc based on spotify_id
 // input: req.body that includes spotify_id
@@ -72,9 +74,11 @@ router.get('/users/all', userController.getAllUsers, (req, res, err) => {
   "playlist_id": "1234567",
   "__v": 0
 }*/
-router.post('/users/', userController.getDoc, (req, res, err) => {
-  res.status(200).json(res.locals.doc)
-});
+router.post('/users/',
+  userController.getDoc,
+  (req, res, err) => {
+    res.status(200).json(res.locals.doc)
+  });
 
 //Created a new document at 'spotify_id'
 //Input: req.body that includes spotify_id

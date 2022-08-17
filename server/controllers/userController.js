@@ -8,11 +8,11 @@ const userController = {}
 userController.getUserToken = (req, res, next) => {
     console.log('userController.getUserToken executed');
     const { code } = req.query;
-    console.log('code is: ', code);
+    //console.log('code is: ', code);
 
   spotifyApi.authorizationCodeGrant(code)
     .then(data => {
-      console.log('authorizationCodeGrant data.body: ', data.body);
+      //console.log('authorizationCodeGrant data.body: ', data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
       spotifyApi.setAccessToken(access_token);
@@ -49,7 +49,7 @@ userController.checkIfUserExists = (req, res, next) => {
     .then((doc)=>{
         res.locals.doc = doc;
         console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
-        res.locals.redirect = '/#/playlistform'
+        // res.locals.redirect = '/#/playlistform'
         next();
     })
 }
@@ -101,7 +101,7 @@ userController.createDoc = (req, res, next) => {
 userController.updateDoc = (req, res, next) => {
     const {spotify_id, playlist_id} = req.body
     //console.log('userController.updateDoc req.params.id: ', id)
-    User.findOneAndUpdate({spotify_id}, {playlist_id}, {new:true}, (err, doc) => {
+    User.findOneAndUpdate({spotify_id}, {playlist_id}, {new: true}, (err, doc) => {
         if(err){
             return next('Error in userController.updateDoc: ' + JSON.stringify(err))
         }

@@ -7,6 +7,16 @@ const EmbeddedPlayer = props => {
 
   useEffect(()=>{
     //do a PATCH and add props.playlistId
+    fetch('/api/userInfo')
+    .then((data) => data.json())
+    .then((user) => {
+      console.log('user info:', user);
+      // update state to put in spotify_id, playlist_id(from db history), username
+      // props.updateUserInfo(user);
+    })
+    .catch((error) => { 
+      console.log('Fetch error is:', error)
+    })
   }, [])
 
   //once a user logs in, we need to receive a spotify_id back from the Spotify API

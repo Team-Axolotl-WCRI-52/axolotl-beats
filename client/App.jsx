@@ -15,12 +15,12 @@ class App extends Component {
     super();
     this.state = {
       playlistId: 'Initial value',
-      username: undefined,
-      user_id: undefined,
+      username: undefined,      
+      spotify_id: undefined,
     };
     // bind handler this component 
     this.updatePlaylistId = this.updatePlaylistId.bind(this);
-    this.getUserId = this.getUserId.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
   // should this be tied in with a lifecycle method?
@@ -46,37 +46,61 @@ class App extends Component {
       //else we have an empty string/array variable and render nothing on our page(most recently created playlist page)
   }
 
-  getUserId() {
+  updateUserInfo() {
   // 'access=BQBQQL7-gOAWVOY2ITvMDesw9LXrLmO7ZPQnJHO8jkGmJ9ntmR-pKFBGCpPi6sT0y8P2Lro6QGMiEpkoGah4mrd8A0nEMG_KZtbtvVisXEfInL5m6a5GZqjgoV9SSZdaIHPIOY5V--iOpVMWCBHBLmhNwEYhULhCW0tFQMPNmzHC18ipvqWfV04UwisEtrYEHOq0p2V0jgT4Vg; refresh=AQAuQmh4Fl6FpgS_v7TImxTF6BsPoDgz5pi5OpsVyPkEJzmNQ0U2j4I4NTF5TxAJ5mhZltypKREvozXBfzKn2_H2q2KGUDBWiGgm59aT1VFiJe9D3GsP9LygRpNKBNerbyU'
     // need to be checked!!
-    const cookieValue = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('access='))
-      ?.split('=')[1];
-    console.log('COOKIE is: ', cookieValue);
+    // const cookieValue = document.cookie
+    //   .split('; ')
+    //   .find((row) => row.startsWith('access='))
+    //   ?.split('=')[1];
+    // console.log('COOKIE is: ', cookieValue);
 
-    const getOptions = {
-      'Content-Type': 'application/json',
-      'Authorization': cookieValue,
-      'Host': 'api.spotify.com'
-    }
-    fetch('api.spotify.com/v1/me HTTP/1.1', getOptions)
-    .then((data) => data.json())
-    .then((data) => {
-      // fetch('backend', postOptions)
-      
-      console.log('fromspotify: ', data)
+    // const getOptions = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': cookieValue,
+    //   'Host': 'api.spotify.com'
+    // }
+
+    this.setState({
+      playlistId: 'Initial value',
+      username: undefined,      
+      spotify_id: undefined,
     })
+
+
+
+    // fetch('api.spotify.com/v1/me HTTP/1.1', getOptions)
+    // .then((data) => data.json())
+    // .then((data) => {
+    //   // fetch('backend', postOptions)      
+    //   console.log('fromspotify: ', data)
+    // })
   }
-  // 'access=BQBQQL7-gOAWVOY2ITvMDesw9LXrLmO7ZPQnJHO8jkGmJ9ntmR-pKFBGCpPi6sT0y8P2Lro6QGMiEpkoGah4mrd8A0nEMG_KZtbtvVisXEfInL5m6a5GZqjgoV9SSZdaIHPIOY5V--iOpVMWCBHBLmhNwEYhULhCW0tFQMPNmzHC18ipvqWfV04UwisEtrYEHOq0p2V0jgT4Vg; refresh=AQAuQmh4Fl6FpgS_v7TImxTF6BsPoDgz5pi5OpsVyPkEJzmNQ0U2j4I4NTF5TxAJ5mhZltypKREvozXBfzKn2_H2q2KGUDBWiGgm59aT1VFiJe9D3GsP9LygRpNKBNerbyU'
 
-//https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
-//https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#example_2_get_a_sample_cookie_named_test2
 
-// GET /v1/me HTTP/1.1
-// Content-Type: application/json
-// Authorization: 
-// Host: api.spotify.com
+
+  render() {
+
+    console.log('this.state in render', this.state.playlistId);
+
+    return (
+      <Router>
+        <div id='app'>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<LoginPage />}></Route>
+            <Route path='/player' element={<EmbeddedPlayer playlistId={this.state.playlistId} username={this.state.username} spotify_id={this.state.spotify_id} />}></Route>
+            <Route path='/playlistform' element={<PlaylistPage updatePlaylistId={this.updatePlaylistId} />}></Route>
+          </Routes>
+        </div>
+        <h1 onClick={this.getUserId} >Test Click Me</h1>
+        <nav className='end' id='navBar'>End</nav>
+      </Router>
+    )
+  }
+};
+
+export default App;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host
 
@@ -92,27 +116,3 @@ class App extends Component {
 // If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT
 // If-None-Match: "c561c68d0ba92bbeb8b0fff2a9199f722e3a621a"
 // Cache-Control: max-age=0
-
-  render() {
-
-    console.log('this.state in render', this.state.playlistId);
-
-    return (
-      <Router>
-        <div id='app'>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<LoginPage />}></Route>
-            <Route path='/player' element={<EmbeddedPlayer playlistId={this.state.playlistId} />}></Route>
-            <Route path='/playlistform' element={<PlaylistPage updatePlaylistId={this.updatePlaylistId} />}></Route>
-          </Routes>
-        </div>
-        <h1 onClick={this.getUserId} >Test Click Me</h1>
-        <nav className='end' id='navBar'>End</nav>
-      </Router>
-    )
-  }
-};
-
-export default App;
-
