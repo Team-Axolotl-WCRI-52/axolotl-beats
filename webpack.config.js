@@ -19,10 +19,10 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
-      },
+      },      
       {
-        test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.s[ac]ss$|\.s?css$/i,
+        use: ["style-loader", {loader: "css-loader", options: {importLoaders: 1}}, "postcss-loader", "sass-loader"],
       },
     ],
   },
