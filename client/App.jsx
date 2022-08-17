@@ -67,11 +67,15 @@ class App extends Component {
     return (
       <Router>
         <div id="app">
-          <Navbar
+          {this.state.isLoggedIn ? <Navbar
             isLoggedIn={this.state.isLoggedIn}
             updateIsLoggedIn={this.updateIsLoggedIn}
             updateUserInfo={this.updateUserInfo}
-          />
+          /> : <div id="navBar"></div>}
+          <div id='title'>
+                <div id='name'>Axolotl Beats</div>
+                <div id='slogan'>beats forEach</div>
+          </div>
           <Routes>
             <Route path="/" element={<LoginPage />}></Route>
             <Route
