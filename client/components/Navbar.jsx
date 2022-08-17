@@ -1,24 +1,27 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = (props) => {
 
     const navigate = useNavigate();
 
     const logout = () => {
         const url = 'https://accounts.spotify.com/en/logout';
         const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700,height=500,top=40,left=40');
+        document.cookie = '';
         setTimeout(() => {
+            props.updateUserInfo({})
+            props.updateIsLoggedIn(false)
             navigate('/');
             spotifyLogoutWindow.close()
-        }, 2000);
+        }, 1000);
     }
 
     return (
         <>
             <nav id='navBar'>
                 <ul className="navList">
-                    <li className='links' id='logoutButton' onClick={logout}><a className='bye'>Logout</a></li>
+                    {props.isLoggedIn ? <li className='links' id='logoutButton' onClick={logout}><a className='bye'>Logout</a></li> : <li className='links' id='logoutButton'><a className='bye'>Login</a></li> }
                 </ul>
                 <ul className="navList">
                     <li className='links' id='create-playlist' onClick={() => navigate('/playlistform')}><a className='bye' id='create-playlist1'>Create a new Playlist</a></li>

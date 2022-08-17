@@ -22,10 +22,12 @@ class App extends Component {
       playlistId: "Initial value",
       username: undefined,
       spotify_id: undefined,
+      isLoggedIn: false,
     };
     // bind handler this component
     this.updatePlaylistId = this.updatePlaylistId.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
+    this.updateIsLoggedIn = this.updateIsLoggedIn.bind(this);
   }
 
   // should this be tied in with a lifecycle method?
@@ -50,6 +52,13 @@ class App extends Component {
       username: user.display_name,
       spotify_id: user.spotify_id,
     });
+    console.log("updateUserInfo state: ", this.state);
+  }
+
+  updateIsLoggedIn(input) {
+    this.setState({
+      isLoggedIn: input,
+    });
   }
 
   render() {
@@ -58,13 +67,19 @@ class App extends Component {
     return (
       <Router>
         <div id="app">
-          <Navbar />
+          <Navbar
+            isLoggedIn={this.state.isLoggedIn}
+            updateIsLoggedIn={this.updateIsLoggedIn}
+            updateUserInfo={this.updateUserInfo}
+          />
           <Routes>
             <Route path="/" element={<LoginPage />}></Route>
             <Route
               path="/player"
               element={
                 <EmbeddedPlayer
+                  isLoggedIn={this.state.isLoggedIn}
+                  updateIsLoggedIn={this.updateIsLoggedIn}
                   updateUserInfo={this.updateUserInfo}
                   playlistId={this.state.playlistId}
                   username={this.state.username}

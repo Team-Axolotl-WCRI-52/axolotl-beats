@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 const EmbeddedPlayer = props => {
   const uri = `https://open.spotify.com/embed/playlist/${props.playlistId}?utm_source=generator`
 
-
+ 
 
   useEffect(()=>{
     //do a PATCH and add props.playlistId
@@ -13,6 +13,7 @@ const EmbeddedPlayer = props => {
       console.log('user info:', user);
       // update state to put in spotify_id, playlist_id(from db history), username
       props.updateUserInfo(user);
+      props.updateIsLoggedIn(true)
     })
     .catch((error) => { 
       console.log('Fetch error is:', error)
@@ -36,9 +37,10 @@ const EmbeddedPlayer = props => {
         <p>No playlist here!</p>
       </div>
     );
-  } else {
-    // document.getElementById('iframe-player').volume = 0.2
-  }  ;
+  } 
+  // else {
+  //   // document.getElementById('iframe-player').volume = 0.2
+  // }  ;
   return(
     <div>
       <h1>Welcome {props.username}</h1>
