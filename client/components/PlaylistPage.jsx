@@ -2,7 +2,14 @@ import React from 'react';
 import PlaylistForm from './PlaylistForm.jsx';
 
 const PlaylistPage = (props) => {
-  const { playlistData, setplaylistData } = props;
+  const {
+    playlistData,
+    setplaylistData,
+    breakpointsArr,
+    setbreakpointsArr,
+    genresArr,
+    setgenresArr,
+  } = props;
 
   const segments = playlistData.map((element, index) => {
     return (
@@ -11,6 +18,10 @@ const PlaylistPage = (props) => {
         id={index}
         playlistData={playlistData}
         setplaylistData={setplaylistData}
+        breakpointsArr={breakpointsArr}
+        setbreakpointsArr={setbreakpointsArr}
+        genresArr={genresArr}
+        setgenresArr={setgenresArr}
       />
     );
   });
