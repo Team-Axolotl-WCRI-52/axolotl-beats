@@ -3,6 +3,7 @@ const express = require('express');
 const apiRouter = require('./routes/api');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 // processes .env into process.env
 const dotenv = require('dotenv');
 dotenv.config();
@@ -16,6 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+//connect to mongoDB
+const MONGO_URI = 'mongodb+srv://pantless-thundergoose:thundergeese@cluster0.uhu1iyu.mongodb.net/?retryWrites=true&w=majority'
+mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.once('open', ()=>console.log('Connected to MongoDB'))
 
 // use api, go to apirouter
 app.use('/api', apiRouter);

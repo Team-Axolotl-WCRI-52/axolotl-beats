@@ -6,7 +6,7 @@ const playlistController = {};
 playlistController.createPlaylist = async (req, res, next) => {
   try {
     const { genre, playlistName, playlistDescription } = req.body;
-    spotifyApi.setAccessToken(req.cookies.access)
+    spotifyApi.setAccessToken(req.cookies.access);
     spotifyApi.setRefreshToken(req.cookies.refresh);
     const data = await spotifyApi.createPlaylist(
       `${playlistName}`,
