@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider';
 import { useState } from 'react';
 
 function Breakpoint(props) {
-  const { id, breakpointsArr, setbreakpointsArr } = props;
+  const { id, timeDisabled, breakpointsArr, setbreakpointsArr } = props;
 
   // Get the changing value of time and set its state on change
 
@@ -12,14 +12,21 @@ function Breakpoint(props) {
     <div className='m-5'>
       <h3 className='py-3'>At Minute: </h3>
       <input
+        className='shadow appearance-none rounded border border-gray-400 w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
         name='minuteInput'
+        min={
+          breakpointsArr[id - 1] !== undefined
+            ? breakpointsArr[id - 1].minute + 15
+            : 0
+        }
         value={breakpointsArr[id].minute}
-        type='text'
+        type='number'
         onChange={(e) => {
           const updateState = [...breakpointsArr];
-          updateState[id].minute = e.target.value * 1;
+          updateState[id].minute = e.target.value;
           setbreakpointsArr(updateState);
         }}
+        disabled={timeDisabled}
       ></input>
       <br></br>
       <div className='m-3'>

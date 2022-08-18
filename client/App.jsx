@@ -38,28 +38,6 @@ import './stylesheets/app.css';
 
 function App() {
   const [playlistId, setplaylistId] = useState('Initial value');
-  const [playlistData, setplaylistData] = useState([
-    {
-      start_time: 0,
-      end_time: 45,
-      starting_bpm_target: 60,
-      ending_bpm_target: 120,
-      genres: ['rock', 'dance', 'funk'],
-      custom_params: ['danciness'],
-      custom_param_starting_values: [0.5],
-      custom_param_ending_values: [0.9],
-    },
-    {
-      start_time: 45,
-      end_time: 90,
-      starting_bpm_target: 120,
-      ending_bpm_target: 130,
-      genres: ['rock', 'dance', 'funk'],
-      custom_params: ['danciness'],
-      custom_param_starting_values: [0.9],
-      custom_param_ending_values: [0.95],
-    },
-  ]);
 
   // AMG (wed. 5pm): could also include as state a 'custom_parameter_names' array, e.g. ['danciness', 'speechiness']. then, update the function definition remixBreakpointsAndSegmentDataIntoAnArrForServer to be a little cleaner.
 
@@ -125,8 +103,6 @@ function App() {
             element={
               <PlaylistPage
                 setplaylistId={setplaylistId}
-                playlistData={playlistData}
-                setplaylistData={setplaylistData}
                 breakpointsArr={breakpointsArr}
                 setbreakpointsArr={setbreakpointsArr}
                 segmentsArr={segmentsArr}

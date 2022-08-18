@@ -164,7 +164,6 @@ function Segment(props) {
   const { id, segmentsArr, setSegmentsArr } = props;
 
   const theme = useTheme();
-  const [genreName, setGenreName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
@@ -175,11 +174,6 @@ function Segment(props) {
     updateState[id].genres = value;
 
     setSegmentsArr(updateState);
-
-    setGenreName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
   };
 
   return (
@@ -206,7 +200,7 @@ function Segment(props) {
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, genreName, theme)}
+              style={getStyles(name, segmentsArr[id].genres, theme)}
             >
               {name}
             </MenuItem>

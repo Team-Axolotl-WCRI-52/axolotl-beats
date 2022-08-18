@@ -1,8 +1,8 @@
 import React from 'react';
-import PlaylistForm from './PlaylistForm.jsx';
 import Breakpoint from './Breakpoint.jsx';
 import Segment from './Segment.jsx';
 
+// function that takes breakpoints, segments state objects and packages into a request body that can be processesd by the back-end
 function remixBreakpointsAndSegmentDataIntoAnArrForServer(
   breakpointsArr,
   segmentsArr
@@ -31,22 +31,19 @@ function remixBreakpointsAndSegmentDataIntoAnArrForServer(
 }
 
 const PlaylistPage = (props) => {
-  const {
-    playlistData,
-    setplaylistData,
-    breakpointsArr,
-    setbreakpointsArr,
-    segmentsArr,
-    setSegmentsArr,
-  } = props;
+  const { breakpointsArr, setbreakpointsArr, segmentsArr, setSegmentsArr } =
+    props;
 
   const breakpoints = breakpointsArr.map((element, index) => {
+    const timeDisabled = index === 0 ? true : false;
+
     return (
       <Breakpoint
         key={`breakpoint-${index}`}
         id={index}
         breakpointsArr={breakpointsArr}
         setbreakpointsArr={setbreakpointsArr}
+        timeDisabled={timeDisabled}
       />
     );
   });
@@ -73,13 +70,7 @@ const PlaylistPage = (props) => {
   return (
     <div id='formPage'>
       <h1>Fill out the form below to generate a new playlist</h1>
-      {/* <PlaylistForm
-        playlistData={playlistData}
-        setplaylistData={setplaylistData}
-        updatePlaylistId={props.updatePlaylistId}
-      /> */}
       {result}
-      {/* placeholder for Spotify component with iFrame */}
       <button
         type='button'
         onClick={() => {
