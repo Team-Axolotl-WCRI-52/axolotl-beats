@@ -4,17 +4,6 @@ const spotifyApi = require('../utils/apiWrapper');
 
 const userController = {}
 
-// routes/default.js
-function index(req, res) {
-    res.send('hello world!');
-}
-
-function hello(req, res) {
-    const name = req.params.name ?? "world";
-    res.send(`hello ${name}!`);
-}
-
-
 //This calls the Spotify API********
 userController.getUserToken = (req, res, next) => {
     console.log('userController.getUserToken executed');
@@ -23,7 +12,7 @@ userController.getUserToken = (req, res, next) => {
 
   spotifyApi.authorizationCodeGrant(code)
     .then(data => {
-      //console.log('authorizationCodeGrant data.body: ', data.body);
+      console.log('authorizationCodeGrant data.body: ', data.body);
       const { access_token, refresh_token } = data.body;
       // STRETCH: maybe setInterval and refreshToken here
       // these two lines below do not get deleted between users
@@ -33,10 +22,10 @@ userController.getUserToken = (req, res, next) => {
       spotifyApi.setRefreshToken(refresh_token);
       res.cookie('access', access_token).cookie('refresh', refresh_token);
     //   console.log('userController.getUserToken spotifyApi: ', spotifyApi);
-      next()
+      return next()
     })
     .catch(err => {
-      console.log('userController.getUserToken err: ', err)
+    //   console.log('userController.getUserToken err: ', err)
       res.status(err.statusCode).json(`Error: Status Code ${err.statusCode}`)});
 }
 
@@ -57,14 +46,16 @@ userController.getSpotifyId = (req, res, next) => {
 userController.checkIfUserExists = (req, res, next) => {
     const spotify_id = res.locals.spotify_id
     const display_name = res.locals.display_name
+    res.locals.jestty = 'test'
     console.log('userController.checkIfUserExists res.locals.spotify_id: ', res.locals.spotify_id)
     User.findOneAndUpdate({spotify_id}, {spotify_id, display_name}, {upsert:true, new:true})
     .then((doc)=>{
         res.locals.doc = doc;
-        // console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
+        console.log("checkIfUserExists res.locals.doc: ", res.locals.doc)
         // res.locals.redirect = '/#/playlistform'
-        next();
+        return next();
     })
+    .catch(err => {console.log('userController.checkifuserexist err: ', err)})
 }
 
 //Queries DB*********
@@ -76,7 +67,7 @@ userController.getAllUsers = (req, res, next) => {
     .then((data)=>{
         console.log('next in get all users', data);
         res.locals.data = data;
-        next();
+        return next();
     })
 }
 

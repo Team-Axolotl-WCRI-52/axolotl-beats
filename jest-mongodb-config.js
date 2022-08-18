@@ -4,7 +4,8 @@ module.exports = {
       version: '4.0.3',
       skipMD5: true,
     },
-    autoStart: false,
     instance: {},
+    autoStart: false,
   },
+  mongoURLEnvName: 'mongodb+srv://pantless-thundergoose:thundergeese@cluster0.uhu1iyu.mongodb.net/?retryWrites=true&w=majority',
 };
