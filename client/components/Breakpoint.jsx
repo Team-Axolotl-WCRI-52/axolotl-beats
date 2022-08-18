@@ -12,7 +12,7 @@ function Breakpoint(props) {
     <div className='m-5'>
       <h3 className='py-3'>At Minute: </h3>
       <input
-        className='shadow appearance-none rounded border border-gray-400 w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+        className='shadow appearance-none rounded border border-borderColor w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
         name='minuteInput'
         min={
           breakpointsArr[id - 1] !== undefined
