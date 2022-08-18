@@ -98,32 +98,6 @@ function App() {
     },
   ]);
 
-  function remixBreakpointsAndSegmentDataIntoAnArrForServer(
-    breakpointsArr,
-    segmentsArr
-  ) {
-    const arrForServer = [];
-    for (let i = 0; i < segmentsArr.length; i++) {
-      const custom_params = Object.keys(breakpointsArr[i].custom_params); // this implicitly assumes that breakpoint-objects i and i+1 have the same custom_params objects.... so really we should just update this in STATE at some point, and then the present code can be cleaned up slightly.
-      const segmentObj = {
-        start_time: breakpointsArr[i].minute,
-        end_time: breakpointsArr[i + 1].minute,
-        starting_bpm_target: breakpointsArr[i].bpm,
-        ending_bpm_target: breakpointsArr[i + 1].bpm,
-        genres: segmentsArr[i],
-        custom_params,
-        custom_param_starting_values: custom_params.map(
-          (parameterName) => breakpointsArr[i].custom_params[parameterName]
-        ),
-        custom_param_endinging_values: custom_params.map(
-          (parameterName) => breakpointsArr[i + 1].custom_params[parameterName]
-        ),
-      };
-      arrForServer.push(segmentObj);
-    }
-    return segmentsArr;
-  }
-
   return (
     <Router>
       <div id='app'>

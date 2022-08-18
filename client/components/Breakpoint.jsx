@@ -33,7 +33,7 @@ function Breakpoint(props) {
             updateState[id].bpm = e.target.value;
             setbreakpointsArr(updateState);
           }}
-          defaultValue={breakpointsArr[id].bpm}
+          value={breakpointsArr[id].bpm}
           min={30}
           max={200}
           valueLabelDisplay='on'
@@ -50,7 +50,7 @@ function Breakpoint(props) {
             updateState[id].custom_params.danciness = e.target.value;
             setbreakpointsArr(updateState);
           }}
-          defaultValue={breakpointsArr[id].custom_params.danciness * 100}
+          value={breakpointsArr[id].custom_params.danciness * 100}
           min={0}
           max={100}
           step={10}
