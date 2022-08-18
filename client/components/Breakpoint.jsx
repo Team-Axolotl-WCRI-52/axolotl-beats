@@ -18,7 +18,7 @@ function Breakpoint(props) {
         onChange={(e) => {
           const updateState = [...breakpointsArr];
           updateState[id].minute = e.target.value * 1;
-          setplaylistData(updateState);
+          setbreakpointsArr(updateState);
         }}
       ></input>
       <br></br>
@@ -31,7 +31,7 @@ function Breakpoint(props) {
           onChange={(e) => {
             const updateState = [...breakpointsArr];
             updateState[id].bpm = e.target.value;
-            setplaylistData(updateState);
+            setbreakpointsArr(updateState);
           }}
           defaultValue={breakpointsArr[id].bpm}
           min={30}
@@ -48,7 +48,7 @@ function Breakpoint(props) {
           onChange={(e) => {
             const updateState = [...breakpointsArr];
             updateState[id].custom_params.danciness = e.target.value;
-            setplaylistData(updateState);
+            setbreakpointsArr(updateState);
           }}
           defaultValue={breakpointsArr[id].custom_params.danciness * 100}
           min={0}
