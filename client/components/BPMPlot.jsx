@@ -57,10 +57,6 @@ function BPMPlot(props) {
     },
   };
 
-  return (
-    <div>
-      <Scatter data={data} options={options} width={500} height={350} />
-    </div>
-  );
+  return <Scatter data={data} options={options} />;
 }
 export default BPMPlot;

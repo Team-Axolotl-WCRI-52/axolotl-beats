@@ -1,6 +1,7 @@
 import React from 'react';
 import Breakpoint from './Breakpoint.jsx';
 import Segment from './Segment.jsx';
+import DownArrow from './DownArrow.jsx';
 import BPMPlot from './BPMPlot.jsx';
 import CustomParamsPlot from './CustomParamsPlot.jsx';
 
@@ -33,8 +34,14 @@ function remixBreakpointsAndSegmentDataIntoAnArrForServer(
 }
 
 const PlaylistPage = (props) => {
-  const { breakpointsArr, setbreakpointsArr, segmentsArr, setSegmentsArr } =
-    props;
+  const {
+    loading,
+    setLoading,
+    breakpointsArr,
+    setbreakpointsArr,
+    segmentsArr,
+    setSegmentsArr,
+  } = props;
 
   const breakpoints = breakpointsArr.map((element, index) => {
     const timeDisabled = index === 0 ? true : false;
@@ -61,47 +68,73 @@ const PlaylistPage = (props) => {
     );
   });
 
+  const downArrow = <DownArrow />;
+
   const result = [];
   breakpoints.forEach((element, index) => {
     result.push(element);
+
+    if (index < breakpoints.length - 1) {
+      result.push(downArrow);
+    }
     if (segments[index]) {
       result.push(segments[index]);
     }
+    if (index < breakpoints.length - 1) {
+      result.push(downArrow);
+    }
   });
 
-  return (
-    <div id='formPage'>
-      <h1>Fill out the form below to generate a new playlist</h1>
-      <div className='flex flex-col lg:flex-row'>
-        <BPMPlot breakpointsArr={breakpointsArr} />
-        <CustomParamsPlot breakpointsArr={breakpointsArr} />
+  if (loading) {
+    return (
+      <div className='h-screen flex flex-col justify-center content-center'>
+        <div class='text-5xl text-center'>Your Playlist is Loading...</div>
+        <div class='h-1/5 mx-auto loader --1'></div>
       </div>
-      {result}
-      <button
-        type='button'
-        onClick={() => {
-          fetch('/api/getDynamicPlaylist', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              playlistName: 'our beautiful playlist',
-              segments: remixBreakpointsAndSegmentDataIntoAnArrForServer(
-                breakpointsArr,
-                segmentsArr
-              ),
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
-        }}
-      >
-        Create Playlist!
-      </button>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div id='formPage'>
+        <h1>Fill out the form below to generate a new playlist</h1>
+        <div className='flex flex-col lg:flex-row lg:flex-row w-screen justify-center content-center'>
+          <div className='w-screen lg:w-5/12 p-5'>
+            <BPMPlot breakpointsArr={breakpointsArr} />
+          </div>
+          <div className='w-screen lg:w-5/12 p-5'>
+            <CustomParamsPlot breakpointsArr={breakpointsArr} />
+          </div>
+        </div>
+        {result}
+        <button
+          type='button'
+          onClick={() => {
+            setLoading(true),
+              fetch('/api/getDynamicPlaylist', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  playlistName: 'our beautiful playlist',
+                  segments: remixBreakpointsAndSegmentDataIntoAnArrForServer(
+                    breakpointsArr,
+                    segmentsArr
+                  ),
+                }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  setLoading(false);
+                  console.log(data);
+                })
+                .catch((err) => console.log(err));
+          }}
+        >
+          Create Playlist!
+        </button>
+      </div>
+    );
+  }
 };
 
 export default PlaylistPage;

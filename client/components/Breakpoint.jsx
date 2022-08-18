@@ -9,7 +9,7 @@ function Breakpoint(props) {
   // Get the changing value of time and set its state on change
 
   return (
-    <div className='m-5'>
+    <div className='m-5 rounded border border-borderColor w-11/12 lg:w-3/12 p-5'>
       <h3 className='py-3'>At Minute: </h3>
       <input
         className='shadow appearance-none rounded border border-borderColor w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'

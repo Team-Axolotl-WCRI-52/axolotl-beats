@@ -76,6 +76,8 @@ function App() {
     },
   ]);
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <Router>
       <div id='app'>
@@ -103,6 +105,8 @@ function App() {
             element={
               <PlaylistPage
                 setplaylistId={setplaylistId}
+                loading={loading}
+                setLoading={setLoading}
                 breakpointsArr={breakpointsArr}
                 setbreakpointsArr={setbreakpointsArr}
                 segmentsArr={segmentsArr}
