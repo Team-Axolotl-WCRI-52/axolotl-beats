@@ -74,6 +74,41 @@ const PlaylistPage = (props) => {
       {result}
       {/* placeholder for Spotify component with iFrame */}
       <button
+        type='button' onClick={() => {
+          // add a new breakpoint-object to breakpointsArr, which is a copy of the last breakpoint-object but with its minute property incremented by 30
+          let newBreakpointsArr = [...breakpointsArr];
+          const lastBreakpointObj = breakpointsArr[breakpointsArr.length - 1];
+          const newBreakpointObj = Object.assign({}, lastBreakpointObj);
+          newBreakpointObj.minute += 30;
+          newBreakpointsArr.push(newBreakpointObj);
+          setbreakpointsArr(newBreakpointsArr);
+          // add a new segment-object to segmentsArr, which is a copy of the last segment-object
+          let newSegmentsArr = [...segmentsArr];
+          const lastSegmentObj = segmentsArr[segmentsArr.length - 1];
+          const newSegmentObj = Object.assign({}, lastSegmentObj);
+          newSegmentsArr.push(newSegmentObj);
+          setSegmentsArr(newSegmentsArr);
+        }}
+      >
+        Add a segment!
+      </button>
+      <br />
+      <button type ="button" onClick={() => {
+        let newBreakpointsArr = [...breakpointsArr];
+        if (newBreakpointsArr.length > 2) {
+          newBreakpointsArr.pop()
+        }
+        setbreakpointsArr(newBreakpointsArr);
+        let newSegmentsArr = [...segmentsArr];
+        if (newSegmentsArr.length > 1) {
+          newSegmentsArr.pop()
+        }
+        setSegmentsArr(newSegmentsArr);
+      }}>
+        Delete a segment!
+      </button>
+      <br />
+      <button
         type='button'
         onClick={() => {
           fetch('/api/getDynamicPlaylist', {
@@ -94,7 +129,7 @@ const PlaylistPage = (props) => {
             .catch((err) => console.log(err));
         }}
       >
-        Create Playlist!
+        Create my playlist!
       </button>
     </div>
   );
