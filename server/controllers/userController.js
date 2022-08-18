@@ -4,6 +4,17 @@ const spotifyApi = require('../utils/apiWrapper');
 
 const userController = {}
 
+// routes/default.js
+function index(req, res) {
+    res.send('hello world!');
+}
+
+function hello(req, res) {
+    const name = req.params.name ?? "world";
+    res.send(`hello ${name}!`);
+}
+
+
 //This calls the Spotify API********
 userController.getUserToken = (req, res, next) => {
     console.log('userController.getUserToken executed');
