@@ -1,8 +1,11 @@
 import React from 'react';
-// import PlaylistForm from './PlaylistForm.jsx';
 import Breakpoint from './Breakpoint.jsx';
 import Segment from './Segment.jsx';
+import DownArrow from './DownArrow.jsx';
+import BPMPlot from './BPMPlot.jsx';
+import CustomParamsPlot from './CustomParamsPlot.jsx';
 
+// function that takes breakpoints, segments state objects and packages into a request body that can be processesd by the back-end
 function remixBreakpointsAndSegmentDataIntoAnArrForServer(
   breakpointsArr,
   segmentsArr
@@ -32,6 +35,8 @@ function remixBreakpointsAndSegmentDataIntoAnArrForServer(
 
 const PlaylistPage = (props) => {
   const {
+    loading,
+    setLoading,
     breakpointsArr,
     setbreakpointsArr,
     segmentsArr,
@@ -39,12 +44,15 @@ const PlaylistPage = (props) => {
   } = props;
 
   const breakpoints = breakpointsArr.map((element, index) => {
+    const timeDisabled = index === 0 ? true : false;
+
     return (
       <Breakpoint
         key={`breakpoint-${index}`}
         id={index}
         breakpointsArr={breakpointsArr}
         setbreakpointsArr={setbreakpointsArr}
+        timeDisabled={timeDisabled}
       />
     );
   });
@@ -60,17 +68,42 @@ const PlaylistPage = (props) => {
     );
   });
 
+  const downArrow = <DownArrow />;
+
   const result = [];
   breakpoints.forEach((element, index) => {
     result.push(element);
+
+    if (index < breakpoints.length - 1) {
+      result.push(downArrow);
+    }
     if (segments[index]) {
       result.push(segments[index]);
     }
+    if (index < breakpoints.length - 1) {
+      result.push(downArrow);
+    }
   });
 
+
+if (loading) {
   return (
+    <div className='h-screen flex flex-col justify-center content-center'>
+      <div class='text-5xl text-center'>Your Playlist is Loading...</div>
+      <div class='h-1/5 mx-auto loader --1'></div>
+    </div>
+  );
+} else {return (
     <div id='formPage'>
       <h1>Fill out the form below to generate a new playlist</h1>
+      <div className='flex flex-col lg:flex-row lg:flex-row w-screen justify-center content-center'>
+          <div className='w-screen lg:w-5/12 p-5'>
+            <BPMPlot breakpointsArr={breakpointsArr} />
+          </div>
+          <div className='w-screen lg:w-5/12 p-5'>
+            <CustomParamsPlot breakpointsArr={breakpointsArr} />
+          </div>
+        </div>
       {result}
       {/* placeholder for Spotify component with iFrame */}
       <button
@@ -132,7 +165,8 @@ const PlaylistPage = (props) => {
         Create my playlist!
       </button>
     </div>
-  );
-};
+    )
+  }
+}
 
 export default PlaylistPage;
