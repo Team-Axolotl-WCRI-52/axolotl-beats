@@ -47,13 +47,13 @@ function Breakpoint(props) {
           type='number'
           onChange={(e) => {
             const updateState = [...breakpointsArr];
-            updateState[id].custom_params.danciness = e.target.value;
+            updateState[id].custom_params.danciness = e.target.value / 100;
             setbreakpointsArr(updateState);
           }}
           value={breakpointsArr[id].custom_params.danciness * 100}
           min={0}
           max={100}
-          step={10}
+          step={1}
           valueLabelDisplay='on'
         />
       </div>
