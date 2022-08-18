@@ -2,19 +2,30 @@
 $font-family: "Quicksand", sans-serif;
 $primary-color: #fad3da;
 $secondary-color: #ffe5d9ff;
+$tertiary-color:#f6c8d0;
 $spotify-color: rgb(200, 235, 214);
 $font-color: rgb(134, 109, 116);
-$dark-font-color: rgb(82, 66, 70);
+$dark-font-color: rgb(59, 38, 43);
 $pulse-speed:0.5s;
 $chill-pulse-speed: 0.75s;
 
 body {
   margin: 0;
+  padding:0;
 }
-
 // * {
 //   // border: 1px black solid;
 // }
+
+#app{
+  width:100%;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
+}
 
 #navBar {
   display: flex;
@@ -36,11 +47,10 @@ body {
     color: $font-color;
     text-decoration: none;
     transition:0.25s;
-    transform:scale(1);
+    font-weight:500;
     &:hover{
       color:$dark-font-color;
       cursor:pointer;
-      font-weight:600;
     }
   }
 
@@ -48,9 +58,12 @@ body {
     list-style-type: none;
     display: flex;
     flex-direction: row-reverse;
+    justify-content:space-evenly;
+    align-items:center;
     color: $font-color;
     text-decoration: none;
-    padding:0;
+    width:100%;
+    padding-right:8.5rem;
   }
 
   .navList:link {
@@ -136,27 +149,7 @@ body {
       animation: $pulse-speed purplePulse infinite;
     }
   }
-  .notes-div{
-    display:flex;
-    justify-content:space-evenly;
-    align-items:center;
-    width:100%;
-    padding:1rem;
-   
-    .note{
-      width:70px;
-      
-      padding:2rem;
-      border-radius: 3rem;
-    }
 
-    .blast-left{
-      animation: $pulse-speed blastLeft infinite;
-    }
-
-    .blast-right{
-      animation: $pulse-speed blastRight infinite;
-    }
   }
   .two-axolotls{
     display:flex;
@@ -171,10 +164,85 @@ body {
     }
   }
 
+.ostrich-div{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem;
+
 }
 
+#duck{
+  width:250px;
+}
+
+.lightning-div{
+  .lightning{
+    width:100px;
+  }
+}
+
+#lightning-left{
+  animation:$chill-pulse-speed twitch infinite alternate;
+}
+
+#lightning-right{
+  animation:$chill-pulse-speed twitch infinite alternate;
+}
+
+
+.notes-div{
+  display:flex;
+  justify-content:space-evenly;
+  align-items:center;
+  width:100%;
+  padding:1rem;
+ 
+  .note{
+    width:70px;
+    
+    padding:2rem;
+    border-radius: 3rem;
+  }
+
+  .blast-left{
+    animation: $pulse-speed blastLeft infinite;
+  }
+
+  .blast-right{
+    animation: $pulse-speed blastRight infinite;
+  }
+}
 .flip-horizontally{
   transform:scaleX(-1);
+}
+
+.player-div{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  gap:2rem;
+  padding-bottom:3rem;
+}
+
+.dancing-left-div{
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding-top:3rem;
+}
+
+.dancing-right-div{
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
 }
 
 @keyframes redPulse {
@@ -298,6 +366,16 @@ body {
 	}
 }
 
+@keyframes twitch {
+  0% {
+    transform:rotate(0deg);
+	}
+
+	100% {
+    transform:rotate(15deg);
+	}
+}
+
   
 .ostrich-div{
   .ostrich{
@@ -344,10 +422,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 2rem;
   text-align: center;
-  margin: 50px;
   color: $font-color;
+  border-radius:2rem;
+  background-color:$tertiary-color;
+  margin-bottom:2rem;
+  box-shadow:3px 3px 8px $font-color;
 
   .makePlaylist {
     font-family: $font-family;
@@ -400,12 +481,37 @@ body {
   }
 }
 
+.formContainer{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1rem;
+  width:100%;
+}
+
+#loading-img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3rem;
+}
+
 .embedded-player{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
   gap:1rem;
+  flex-grow:2;
+  min-width:300px;
+  max-width:500px;
   h1{
 
     span{
@@ -418,4 +524,19 @@ body {
   border:none;
   border-radius:1rem;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.62);
+}
+
+
+
+.history{
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  justify-content: space-around;
+  align-items:center;
+  // border: 2px solid $font-color;
+  background-color: $secondary-color;
+  color: $font-color;
+  text-decoration: none;
+  font-size:1.5rem;
 }

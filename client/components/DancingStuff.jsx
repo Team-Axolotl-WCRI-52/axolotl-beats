@@ -17,7 +17,7 @@ const DancingStuff = (props) => {
                 <div className="lights red"></div>
                 <div className="lights blue"></div>
                 <div className="lights purple"></div>
-                <div className="lights blue"></div>
+                <div className="lights red"></div>
             </div>
             <div className="notes-div">
                 <img className="note blast-left" src={dualNote}></img>
@@ -30,9 +30,7 @@ const DancingStuff = (props) => {
                     <img className="axolotl flip-horizontally" src={axolotl}></img>
                 </div>
                 <div className="axolotl-div">
-                    
                     <img className="axolotl" src={axolotl}></img>
-                    
                 </div>
             </div>
             

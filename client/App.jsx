@@ -11,6 +11,9 @@ import PlaylistPage from "./components/PlaylistPage.jsx";
 import EmbeddedPlayer from "./components/EmbeddedPlayer.jsx";
 import Navbar from "./components/Navbar.jsx";
 import DancingStuff from './components/DancingStuff.jsx'
+import DancingLeft from './components/DancingLeft.jsx';
+import DancingRight from './components/DancingRight.jsx';
+import History from './components/History.jsx';
 
 import "./stylesheets/styles.scss";
 
@@ -89,14 +92,19 @@ class App extends Component {
             <Route
               path="/player"
               element={
-                <EmbeddedPlayer
-                  isLoggedIn={this.state.isLoggedIn}
-                  updateIsLoggedIn={this.updateIsLoggedIn}
-                  updateUserInfo={this.updateUserInfo}
-                  playlistId={this.state.playlistId}
-                  username={this.state.username}
-                  spotify_id={this.state.spotify_id}
-                />
+                <div className="player-div">
+                  <DancingLeft />
+                  <EmbeddedPlayer
+                    isLoggedIn={this.state.isLoggedIn}
+                    updateIsLoggedIn={this.updateIsLoggedIn}
+                    updateUserInfo={this.updateUserInfo}
+                    playlistId={this.state.playlistId}
+                    username={this.state.username}
+                    spotify_id={this.state.spotify_id}
+                  />
+                  <DancingRight />
+                </div>
+                
               }
             ></Route>
             <Route
@@ -109,6 +117,7 @@ class App extends Component {
               }
             ></Route>
           </Routes>
+          {/* {this.state.isLoggedIn ? <History /> : <></>} */}
         </div>
         {/* <h1 onClick={this.getUserId} >Test Click Me</h1> */}
         {/* <nav className="end" id="navBar">
