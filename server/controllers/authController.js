@@ -32,10 +32,16 @@ authController.checkUserAuth = async (req, res, next) => {
 ** use instance of wrapper object "spotifyApi" and its methods to get and store tokens
 */
 authController.getToken = (req, res, next) => {
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true
+  }
   spotifyApi.authorizationCodeGrant(req.query.code)
     .then(data => {
       const { access_token, refresh_token } = data.body;
-      res.cookie('access', access_token).cookie('refresh', refresh_token);
+      res
+        .cookie('access', access_token, cookieOptions)
+        .cookie('refresh', refresh_token, cookieOptions);
       return next();
     })
     .catch(err => {
