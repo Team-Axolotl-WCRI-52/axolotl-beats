@@ -160,24 +160,21 @@ function getStyles(name, genreName, theme) {
   };
 }
 
-function Genres(props) {
-  const { id, playlistData, setplaylistData } = props;
+function Segment(props) {
+  const { id, segmentsArr, setSegmentsArr } = props;
+
   const theme = useTheme();
-  const [genreName, setGenreName] = React.useState(playlistData[id].genres);
+  const [genreName, setGenreName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
-    console.log('value', value);
-
-    const updateState = [...playlistData];
+    const updateState = [...segmentsArr];
     updateState[id].genres = value;
 
-    //TODO: Cap array at 5
-
-    setplaylistData(updateState);
+    setSegmentsArr(updateState);
 
     setGenreName(
       // On autofill we get a stringified value.
@@ -188,12 +185,12 @@ function Genres(props) {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id='demo-multiple-chip-label'>Select Genres</InputLabel>
+        <InputLabel id='demo-multiple-chip-label'>Genres</InputLabel>
         <Select
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
           multiple
-          value={playlistData[id].genres}
+          value={segmentsArr[id].genres}
           onChange={handleChange}
           input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
           renderValue={(selected) => (
@@ -220,4 +217,4 @@ function Genres(props) {
   );
 }
 
-export default Genres;
+export default Segment;

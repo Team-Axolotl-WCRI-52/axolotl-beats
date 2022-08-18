@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Breakpoints from './Breakpoints.jsx';
+import Breakpoints from './Breakpoint.jsx';
 import Genres from './Genres.jsx';
 
 const PlaylistForm = (props) => {
@@ -71,7 +71,7 @@ const PlaylistForm = (props) => {
   };
 
   return (
-    <div className='border-2 border-sky-500 border-indigo-500 rounded-md'>
+    <div className='border-2 border-green-300 border-sky-500 rounded-md'>
       <Breakpoints
         id={id}
         playlistData={playlistData}
