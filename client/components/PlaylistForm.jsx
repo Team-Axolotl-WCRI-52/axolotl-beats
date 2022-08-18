@@ -55,13 +55,14 @@ const PlaylistForm = (props) => {
         //props.updatePlaylistId(doc.playlist_id);
         setDanceImg(' ')
         // console.log('after the doc', Object.keys(doc))
-        if ( doc === null) {
-          // console.log('the thing')
-          setShowButton(true);
-        }else{
-        // if (doc.Error === "Failed to create new playlist"){
-          setShowButton(false);
-        } 
+        // if ( doc === null) {
+        //   // console.log('the thing')
+        //   setShowButton(true);
+        // }else{
+        // // if (doc.Error === "Failed to create new playlist"){
+        //   setShowButton(false);
+        // } 
+        setShowButton(true);
       })
       // handle errors
       .catch((error) => {

@@ -47,8 +47,8 @@ const EmbeddedPlayer = props => {
   //   // document.getElementById('iframe-player').volume = 0.2
   // }  ;
   return(
-    <div>
-      <h1>Welcome {props.username}</h1>
+    <div className="embedded-player">
+      <h1>Welcome <span>{props.username}!</span></h1>
       <iframe
       id='iframe-player'
         src={uri}
