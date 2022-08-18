@@ -32,8 +32,8 @@ function remixBreakpointsAndSegmentDataIntoAnArrForServer(
 
 const PlaylistPage = (props) => {
   const {
-    playlistData,
-    setplaylistData,
+    // playlistData, // maybe dont need these
+    // setplaylistData, // maybe dont need these
     breakpointsArr,
     setbreakpointsArr,
     segmentsArr,
