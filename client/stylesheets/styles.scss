@@ -5,6 +5,7 @@ $secondary-color: #ffe5d9ff;
 $spotify-color: rgb(200, 235, 214);
 $font-color: rgb(134, 109, 116);
 
+
 #navBar {
   display: flex;
   flex-direction: row;
@@ -21,7 +22,7 @@ $font-color: rgb(134, 109, 116);
   background-color: $primary-color;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   color: $font-color;
   width: 100%
 };
@@ -151,4 +152,16 @@ $font-color: rgb(134, 109, 116);
   color: $font-color;
   margin-top: 5px;
   
+}
+
+.playlist-container {
+  border-style: solid;
+  border-radius: 1em;
+  border-color: green;
+  margin: 10px 20px;
+}
+
+.demo-multiple-chip-label {
+  margin: 5px;
+  padding: 5px;
 }
