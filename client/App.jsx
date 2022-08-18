@@ -10,6 +10,7 @@ import LoginPage from "./components/LoginPage.jsx";
 import PlaylistPage from "./components/PlaylistPage.jsx";
 import EmbeddedPlayer from "./components/EmbeddedPlayer.jsx";
 import Navbar from "./components/Navbar.jsx";
+import DancingStuff from './components/DancingStuff.jsx'
 
 import "./stylesheets/styles.scss";
 
@@ -72,10 +73,17 @@ class App extends Component {
             updateIsLoggedIn={this.updateIsLoggedIn}
             updateUserInfo={this.updateUserInfo}
           /> : <div id="navBar"></div>}
+          {this.state.isLoggedIn ? 
           <div id='title'>
-                <div id='name'>Axolotl Beats</div>
-                <div id='slogan'>beats forEach</div>
-          </div>
+          <div id='name' className="chill-pulse">Axolotl Beats</div>
+          <div id='slogan' className="chill-pulse">beats forEach</div>
+          </div> : 
+          <div id='title'>
+                <div id='name' className="pulse">Axolotl Beats</div>
+                <div id='slogan' className="pulse">beats forEach</div>
+          </div>}
+          
+          {this.state.isLoggedIn ? <></>: <DancingStuff />}
           <Routes>
             <Route path="/" element={<LoginPage />}></Route>
             <Route
@@ -103,9 +111,9 @@ class App extends Component {
           </Routes>
         </div>
         {/* <h1 onClick={this.getUserId} >Test Click Me</h1> */}
-        <nav className="end" id="navBar">
+        {/* <nav className="end" id="navBar">
           End
-        </nav>
+        </nav> */}
       </Router>
     );
   }

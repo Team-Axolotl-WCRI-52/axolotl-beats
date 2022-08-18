@@ -30,6 +30,8 @@
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "file-loader": "^6.2.0",
+    "image-loader": "^0.0.1",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.2",
     "react": "^18.2.0",
