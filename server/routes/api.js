@@ -33,10 +33,10 @@ router.get(
 router.post(
   '/getPlaylist',
   playlistController.createPlaylist,
-  playlistController.getRecommendations,
+  playlistController.getStaticRecommendations,
   playlistController.addTracks,
   (req, res) => {
-    res.status(200).json(res.locals.playlistId)
+    res.status(200).json(res.locals.newPlaylist)
   }
 );
 
@@ -50,7 +50,7 @@ router.post(
   playlistController.getDynamicRecommendations,
   playlistController.addTracks,
   (req, res) => {
-    res.status(200).json(res.locals.playlistId)
+    res.status(200).json(res.locals.newPlaylist)
   }
 );
 
