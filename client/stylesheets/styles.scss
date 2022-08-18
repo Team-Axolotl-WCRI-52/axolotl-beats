@@ -27,7 +27,6 @@ body {
   color: $font-color;
   text-decoration: none;
   font-size:1.5rem;
-  
   #create-playlist{
     // size: 100000px;
   
@@ -330,10 +329,13 @@ body {
     font-size: 30px;
     border-radius: 8px;
     color: $font-color;
+    border:none;
+    transition:0.2s;
   }
 
   .login:hover {
-    box-shadow: 5px 5px 5px  $font-color, 0 6px 20px 0 $font-color;
+    box-shadow: 3px 3px 3px  $font-color, 0 6px 10px 0 $font-color;
+    transform:scale(1.05);
   }
 }
 
