@@ -26,9 +26,10 @@ mongoose.connection.once('open', ()=>console.log('Connected to MongoDB'))
 app.use('/api', apiRouter);
 
 // redirect to react UI
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   // console.log('in server.js, rerouting from spotify auth middleware.');
   // console.log(path.resolve(__dirname, '../../client/index.html'));
+  // res.send('this is 404');
   res.sendFile(path.resolve(__dirname, '../../client/index.html'));
 })
 

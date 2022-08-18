@@ -3,7 +3,7 @@ import { useNavigate, Redirect } from 'react-router-dom';
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const getUserData = () => {
     // console.log('button is clicked!');

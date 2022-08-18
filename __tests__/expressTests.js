@@ -11,47 +11,23 @@ const { ContextExclusionPlugin } = require('webpack');
 // npm test expressTest
 
 // things SY needs for testing getToken
-// const app = new express();
+const app = new express();
 const apiRouter = require('../server/routes/api');
 
 // SY attempts to mock spotifyAPI
-const spotifyApi = require('../server/utils/apiWrapper');
-jest.mock('../server/utils/apiWrapper', () => {
-  return {
-    authorizationCodeGrant: jest.fn().mockResolvedValue({
-      body: {
-        access_token: 'thisisamockaccesstoken',
-        token_type: 'Bearer',
-        expires_in: 3600,
-        refresh_token: 'thisisamockrefreshtoken',
-        scope: 'mockscope'
-      },
-      statuseCode: 200
-    }),
-    setAccessToken: jest.fn().mockResolvedValue({ response: 'access token set'}),
-    setRefreshToken: jest.fn().mockResolvedValue({response: 'refresh token set'})
-  }
-});
+const spotifyApi = require('../utils/apiWrapper');
+jest.mock('../utils/apiWrapper');
 
-jest.mock('../server/models/userModel.js', () => {
-  return {
-    findOneAndUpdate: jest.fn().mockResolvedValue({
-      spotify_id: 'test info here',
-    })
-  }
-})
+const mockedSpotifyApi = jes.mocked(spotifyApi, true);
 
+// const { mocked } = require('ts-jest/utils');
+// const mockSpotifyApi = mocked();
 
 /***********************************************************************************************/
 /***********************************************************************************************/
-// const MONGO_URI = 'mongodb+srv://pantless-thundergoose:thundergeese@cluster0.uhu1iyu.mongodb.net/?retryWrites=true&w=majority'
 /***********************************************************************************************/
 
-// import { NextFunction, Request, Response } from 'express';
-
-const app = require("../server/app.js"); // Link to your server file
-const supertest = require("supertest");
-// const request = supertest(app);
+import { NextFunction, Request, Response } from 'express';
 
 describe('Test Middleware Controllers', () => {
 
@@ -71,6 +47,23 @@ describe('Test Middleware Controllers', () => {
     return res;
   };
 
+  // const mockReq = () => {
+  //   const req = {};
+  //   // ...from here assign what properties you need on a req to test with
+  //   return req;
+  // };
+
+  // const mockRes = () => {
+  //   const res = {};
+  //   res.locals = {
+  //     spotify_id: 'sample_spotify_id',
+  //     display_name: 'sample_display_name'
+  //   };
+
+  //   res.status = jest.fn().mockReturnValue(res);
+  //   res.json = jest.fn().mockReturnValue(res);
+  //   return res;
+  // };
 
   const mockedNext = jest.fn()
 
@@ -81,17 +74,36 @@ describe('Test Middleware Controllers', () => {
     );
     const res = mockResponse();
     const next = mockedNext
-
-    request(app)
     await userController.checkIfUserExists(req, res, next);
-    
-    // console.log('res test', res.locals)
-    
-    // expect(typeof res.locals.doc).toBe('object')
-    expect(typeof res.locals.doc).toBe('object')
-    expect(res.locals.doc.spotify_id).toBe('test info here')
-    
+    console.log('res test', res)
+    expect(typeof res.locals.doc).toBe('Object')
+    // expect(res.status).toHaveBeenCalledWith(400);
+    // expect(res.json).toHaveBeenCalledWith({
+    //   message: 'username and password are required'
+    // });
   });
+
+
+  // test('should 400 if username is missing from body', async () => {
+  // const req = {}
+  // const res = {
+  //   locals: {
+  //     spotify_id: 'sample_spotify_id',
+  //     display_name: 'sample_display_name'
+  //   }
+  // }
+
+  // const next = () => true;
+  // userController.checkIfUserExists(mockReq, mockRes, next)
+  // userController.getAllUsers(req, res)
+  // .then(( ) => console.log('res', res))
+  // console.log('res', res)
+
+  // expect(typeof res.locals.doc).toBe('Object')
+
+
+  // })
+
 
 })
 
@@ -99,9 +111,17 @@ describe('Test Middleware Controllers', () => {
 /***********************************************************************************************/
 /***********************************************************************************************/
 
-describe('Test Route Handlers', function () {
+describe('Test Handlers', function () {
+  // {
+  //   "_id": "62fd2fcc4cb7c0fba9a157e3",
+  //   "spotify_id": "31qr2pztpwio2zzt2rhjjt3m46ta",
+  //   "__v": 0,
+  //   "display_name": "goose",
+  //   "playlist_id": "0xQP1CHAI6J1tKg7FkiYHy"
+  // }
 
-  afterEach(() => jest.resetAllMocks());
+  // currently this is erroring out because it calls to spotify api for authentication
+  // and the authentication 
 
   // authorizationCodeGrant data.body:  {
   //   access_token: 'BQAi-WlUg2PVneYlMAJ5v3aKdovUGjMcvvKp89A4IAqmTUjhqvMz4w2LVkbC09a8uiIfqdr5rk5T4i8_N75zghFB8A0lFRNGzaG9v77sNfkNYc9kSLX_P3cBpyPIkDAtNYSES4BMynpPy959hUEDCDLKa6onss2vAQJK3Cx32pXjTqKxTn3geCAS4V4g_9L0-UWYpM5z2onnioYcQJq-AvTHGQJRKJbqacgCZg',
@@ -110,19 +130,29 @@ describe('Test Route Handlers', function () {
   //   refresh_token: 'AQDSf4T6IM0n-O1dDLyl2UxmYWDRja6Gh_PZ8Yh6IkzC_W0K50soZYcJsPbHgb3b3PnfkiL-QmQOMhSTPbXohfikWbkzpSy9Ulz8hkzyG_QfTnWEaApacP-Mz0Le29AdHiw',
   //   scope: 'playlist-modify-public'
   // }
+  test('redirect after /getToken', () => {
+    // SY attempts to mock spotifyAPI
+    const spotifyApi = require('../utils/apiWrapper');
+    jest.mock('../utils/apiWrapper');
 
-  test('GET method to /getToken should redirect to /player', () => {
-
+    const mockedSpotifyApi = jes.mocked(spotifyApi, true);
+    
+    app.use('/api', apiRouter);
     return request(app)
       .get('/api/getToken')
-      .expect(302)
+      .expect(301)
       .then(res => {
         expect(res.headers.location).toContain('#/player');
-    })
+        done();
+      })
+    // status 301 indicates a successful redirection
+    // expect(res.status).toEqual(301);
+    // expect(res.headers.location).toContain('#/player')
+
   })
 
   test('GET method to /auth should redirect to spotify OAuth', () => {
-    // app.use('/api', apiRouter);
+    app.use('/api', apiRouter);
     return request(app)
       .get('/api/auth')
       .then(res => {

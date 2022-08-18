@@ -18,9 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //connect to mongoDB
-const MONGO_URI = 'mongodb+srv://pantless-thundergoose:thundergeese@cluster0.uhu1iyu.mongodb.net/?retryWrites=true&w=majority'
-mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connection.once('open', ()=>console.log('Connected to MongoDB'))
+// const MONGO_URI = 'mongodb+srv://pantless-thundergoose:thundergeese@cluster0.uhu1iyu.mongodb.net/?retryWrites=true&w=majority'
+// mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connection.once('open', ()=>console.log('Connected to MongoDB'))
 
 // use api, go to apirouter
 app.use('/api', apiRouter);

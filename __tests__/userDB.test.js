@@ -25,7 +25,7 @@ describe("Spotify User model DB unit testing", () => {
     expect(savedUser.playlist_id).toBe(userData.playlist_id);
   });
 
-  it("create user without spotify_id required field should fail", async () => {
+  it("create user with Spotify ID", async () => {
     const userWithoutRequiredField = new User({ spotify_id: '12345', display_name: 'John' });
     let err;
     try {
