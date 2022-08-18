@@ -4,6 +4,9 @@ $primary-color: #fad3da;
 $secondary-color: #ffe5d9ff;
 $spotify-color: rgb(200, 235, 214);
 $font-color: rgb(134, 109, 116);
+$dark-font-color: rgb(82, 66, 70);
+$pulse-speed:0.5s;
+$chill-pulse-speed: 0.75s;
 
 body {
   margin: 0;
@@ -17,24 +20,29 @@ body {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items:center;
   // border: 2px solid $font-color;
   background-color: $secondary-color;
   color: $font-color;
   text-decoration: none;
-
-  #create-playlist1 {
+  font-size:1.5rem;
+  
+  #create-playlist{
     // size: 100000px;
-    padding-right: 100px;
+  
   }
 
   .bye {
     color: $font-color;
     text-decoration: none;
-  }
-
-  .bye:hover {
-    font-weight: 600;
+    transition:0.25s;
+    transform:scale(1);
+    &:hover{
+      color:$dark-font-color;
+      cursor:pointer;
+      font-weight:600;
+    }
   }
 
   .navList {
@@ -43,11 +51,13 @@ body {
     flex-direction: row-reverse;
     color: $font-color;
     text-decoration: none;
+    padding:0;
   }
 
   .navList:link {
     color: $font-color;
     text-decoration: none;
+    
   }
   
   .logoutButton {
@@ -60,6 +70,7 @@ body {
   background-color: $primary-color;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
   color: $font-color;
@@ -70,19 +81,233 @@ body {
 #title {
   text-align: center;
   margin: 0px;
+  padding:3rem;
 }
 
 #name {
   font-size: 80px;
   font-weight: 800;
+  border-radius:2rem;
 }
 
 #slogan {
   font-size: 60px;
   font-weight: 700;
+  border-radius:2rem;
+}
+
+.pulse{
+  animation: $pulse-speed pulse infinite;
+}
+
+.chill-pulse{
+  animation: $chill-pulse-speed chillPulse infinite;
+}
+
+.dancing-div{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  align-items:center;
+  width:100%;
+  .lights-div{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    width:60%;
+    .lights{
+      border-radius: 50%;
+      margin: 10px;
+      height: 30px;
+      width: 30px;
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+      transform: scale(1);
+      
+    }
+    .red{
+      background:rgb(249, 63, 53);
+      animation: $pulse-speed redPulse infinite;
+    }
+    .blue{
+      background:rgb(0, 234, 255);
+      animation: $pulse-speed bluePulse infinite;
+    }
+    .purple{
+      background:rgb(240, 0, 240);
+      animation: $pulse-speed purplePulse infinite;
+    }
+  }
+  .notes-div{
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+    width:100%;
+    padding:1rem;
+   
+    .note{
+      width:70px;
+      
+      padding:2rem;
+      border-radius: 3rem;
+    }
+
+    .blast-left{
+      animation: $pulse-speed blastLeft infinite;
+    }
+
+    .blast-right{
+      animation: $pulse-speed blastRight infinite;
+    }
+  }
+  .two-axolotls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem;
+    width:50%;
+    .axolotl-div{
+      .axolotl{
+        width:250px;
+      }
+    }
+  }
+
+}
+
+.flip-horizontally{
+  transform:scaleX(-1);
+}
+
+@keyframes redPulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(249, 63, 53, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 20px rgb(249, 63, 53, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(249, 63, 53, 0);
+	}
+}
+
+@keyframes bluePulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(0, 234, 255, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 20px rgb(0, 234, 255, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(0, 234, 255, 0);
+	}
+}
+
+@keyframes purplePulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(240, 0, 240, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 20px rgb(240, 0, 240, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgb(240, 0, 240, 0);
+	}
 }
 
 
+@keyframes pulse {
+  0% {
+		transform: scale(1);
+		color:$primary-color;
+	}
+
+	70% {
+		transform: scale(1.1);
+		color:$font-color;
+	}
+
+	100% {
+		transform: scale(1);
+		color:$spotify-color;
+	}
+}
+
+@keyframes chillPulse{
+  0% {
+		transform: scale(0.95);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+@keyframes blastLeft {
+  0% {
+		transform: scale(0.5);
+    translate: 70px -50px;
+    opacity:0.1;
+	}
+
+	70% {
+		transform: scale(1.1);
+    opacity:1;
+	}
+
+	100% {
+		transform: scale(1);
+    translate: 0px 50px;
+    opacity:0;
+	}
+}
+
+@keyframes blastRight {
+  0% {
+		transform: scale(0.5);
+    translate: -70px -50px;
+    opacity:0.5;
+	}
+
+	70% {
+		transform: scale(1.1);
+    opacity:1;
+	}
+
+	100% {
+		transform: scale(1);
+    translate: 0px 50px;
+    opacity:0;
+	}
+}
+
+  
+.ostrich-div{
+  .ostrich{
+    width:600px;
+  }
+  .lightning{
+    width:100px;
+  }
+}
 
 .links {
   // margin: 10px;
@@ -108,7 +333,7 @@ body {
   }
 
   .login:hover {
-    box-shadow: 0 12px 16px 0 $font-color, 0 6px 20px 0 $font-color;
+    box-shadow: 5px 5px 5px  $font-color, 0 6px 20px 0 $font-color;
   }
 }
 
@@ -130,9 +355,12 @@ body {
     padding: 10px;
     margin: 20px;
     color: $font-color;
+    border:none;
+    transition:0.25s;
   }
   .makePlaylist:hover {
-    box-shadow: 2px 2px 2px 2px $font-color, 2px 2px 2px 2px $font-color;
+    box-shadow: 3px 3px 3px $font-color, 3px 3px 3px $font-color;
+    transform:scale(1.05);
   }
 
   .dropdown-label {
@@ -168,4 +396,24 @@ body {
     color: $font-color;
     margin-top: 5px;
   }
+}
+
+.embedded-player{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:1rem;
+  h1{
+
+    span{
+      color:rgb(85, 174, 120);
+    }
+  }
+}
+
+#iframe-player{
+  border:none;
+  border-radius:1rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.62);
 }
