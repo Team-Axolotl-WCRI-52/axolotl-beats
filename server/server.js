@@ -21,16 +21,20 @@ app.use(cookieParser());
 app.use('/api', apiRouter);
 
 // redirect to react UI
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   // console.log('in server.js, rerouting from spotify auth middleware.');
   // console.log(path.resolve(__dirname, '../../client/index.html'));
-  res.sendFile(path.resolve(__dirname, '../../client/index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/index.html'));
+})
+
+app.use((req, res, next) => {
+  res.status(404).send("not found")
 })
 
 // global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: 'Express error handler caught unknown middleware error ' + err,
     status: 500,
     message: { err: 'An error occurred' }
   };
