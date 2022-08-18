@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axolotl from '../imgs/axolotl.gif';
+import duck from '../imgs/quack-quack-dance.gif';
 
 const PlaylistForm = (props) => {
   // props.updatePlaylistId("TEST ARGUMENT 123324732473289");
@@ -14,7 +16,7 @@ const PlaylistForm = (props) => {
   const handlePlaylistSubmit = async (event) => {
     // prevent immediately reloading of page when form is submitted
     event.preventDefault();
-    setDanceImg(<img src="https://c.tenor.com/ZjCYoiPG6VAAAAAi/karameru-axolotl.gif"></img>)
+    setDanceImg(<div id="loading-img"><img src={axolotl}></img><img src={duck}></img></div>)
     
 
 
