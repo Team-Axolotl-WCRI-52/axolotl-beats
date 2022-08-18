@@ -38,16 +38,20 @@ const Navbar = (props) => {
     return (
         <>
             <nav id='navBar'>
-                <ul className="navList">
+                {/* <ul className="navList">
                     {props.isLoggedIn ? <li className='links' id='logoutButton' onClick={logout}><a className='bye'>Logout</a></li> : <li className='links' id='logoutButton' onClick={loginPage}><a className='bye'>Login</a></li> }
                 </ul>
                 <ul className="navList">
                    {props.isLoggedIn ? <li className='links' id='create-playlist' onClick={() => navigate('/playlistform')}><a className='bye' id='create-playlist1'>Create a new Playlist</a></li> : <li></li>}
-                    {/* <li> Create Playlist</li> */}
                 </ul>
                 <ul className="navList">
                     {props.isLoggedIn ? <li className='links' id='play-beats' onClick={() => navigate('/player')}><a className='bye'>Play some beats!</a></li>:<li></li>}
-                    {/* <li>Go to player</li> */}
+                </ul> */}
+
+                <ul className="navList">
+                    {props.isLoggedIn ? <li className='links' id='logoutButton' onClick={logout}><a className='bye'>Logout</a></li> : <li className='links' id='logoutButton' onClick={loginPage}><a className='bye'>Login</a></li> }
+                    {props.isLoggedIn ? <li className='links' id='create-playlist' onClick={() => navigate('/playlistform')}><a className='bye' id='create-playlist1'>Create a new Playlist</a></li> : <li></li>}
+                    {props.isLoggedIn ? <li className='links' id='play-beats' onClick={() => navigate('/player')}><a className='bye'>Play some beats!</a></li>:<li></li>}
                 </ul>
             </nav>
         </>
