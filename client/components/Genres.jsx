@@ -161,9 +161,12 @@ function getStyles(name, genreName, theme) {
 }
 
 function Genres(props) {
-  const { id, playlistData, setplaylistData } = props;
+  const { id, genreData, setGenreData } = props;
+
+  console.log(props);
+
   const theme = useTheme();
-  const [genreName, setGenreName] = React.useState(playlistData[id].genres);
+  const [genreName, setGenreName] = React.useState(genreData[id].genres);
 
   const handleChange = (event) => {
     const {
@@ -172,12 +175,12 @@ function Genres(props) {
 
     console.log('value', value);
 
-    const updateState = [...playlistData];
+    const updateState = [...genreData];
     updateState[id].genres = value;
 
     //TODO: Cap array at 5
 
-    setplaylistData(updateState);
+    setGenreData(updateState);
 
     setGenreName(
       // On autofill we get a stringified value.
@@ -193,7 +196,7 @@ function Genres(props) {
           labelId='demo-multiple-chip-label'
           id='demo-multiple-chip'
           multiple
-          value={playlistData[id].genres}
+          value={genreData[id].genres}
           onChange={handleChange}
           input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
           renderValue={(selected) => (
