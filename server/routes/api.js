@@ -16,6 +16,14 @@ router.get(
   authController.getToken,
   (req, res) => {
   res.redirect("/#/playlistform")
+  });
+
+
+router.get(
+  '/checkUserAuth',
+  authController.checkUserAuth,
+  (req, res) => {
+  res.status(200).json(res.locals.authenticatedUser)
 });
 
 

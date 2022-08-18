@@ -21,10 +21,14 @@ app.use(cookieParser());
 app.use('/api', apiRouter);
 
 // redirect to react UI
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   // console.log('in server.js, rerouting from spotify auth middleware.');
   // console.log(path.resolve(__dirname, '../../client/index.html'));
-  res.sendFile(path.resolve(__dirname, '../../client/index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/index.html'));
+})
+
+app.use((req, res, next) => {
+  res.status(404).send("not found")
 })
 
 // global error handler

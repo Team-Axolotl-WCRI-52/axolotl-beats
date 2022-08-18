@@ -4,22 +4,23 @@ const querystring = require('node:querystring');
 const authController = {};
 
 
-authController.checkAuthStatus = async (req, res, next) => {
+authController.checkUserAuth = async (req, res, next) => {
+  if ('access' in req.cookies) spotifyApi.setAccessToken(req.cookies.access)
+  else {
+    console.log('no cookies :(');
+    res.locals.authenticatedUser = null;
+    return next();
+  }
+
   try {
-    const { genre, playlistName, playlistDescription } = req.body;
-    spotifyApi.setAccessToken(req.cookies.access)
-    spotifyApi.setRefreshToken(req.cookies.refresh);
-    const data = await spotifyApi.createPlaylist(
-      `${playlistName}`,
-      {'description': `${playlistDescription}`, 'public': true}
-    );
-    res.locals.playlistId = data.body.id;
+    const data = await spotifyApi.getMe()
+    if (data.statusCode === 200) res.locals.authenticatedUser = data.body;
     return next();
   } catch (err) {
     return next({
-      log: 'Failed to create new playlist',
+      log: 'Failed to verify user authentication',
       status: err.statusCode,
-      message: { Error: 'Failed to create new playlist'}
+      message: { err }
     });
   }
 };
