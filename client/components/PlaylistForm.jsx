@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Breakpoints from './Breakpoints.jsx';
+import Breakpoints from './Breakpoint.jsx';
 import Genres from './Genres.jsx';
 
 const PlaylistForm = (props) => {

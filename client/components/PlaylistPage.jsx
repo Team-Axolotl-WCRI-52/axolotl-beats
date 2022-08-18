@@ -1,5 +1,7 @@
 import React from 'react';
 import PlaylistForm from './PlaylistForm.jsx';
+import Breakpoint from './Breakpoint.jsx';
+import Segment from './Segment.jsx';
 
 const PlaylistPage = (props) => {
   const {
@@ -7,23 +9,39 @@ const PlaylistPage = (props) => {
     setplaylistData,
     breakpointsArr,
     setbreakpointsArr,
-    genresArr,
-    setgenresArr,
+    segmentsArr,
+    setSegmentsArr,
   } = props;
 
-  const segments = playlistData.map((element, index) => {
+  const breakpoints = breakpointsArr.map((element, index) => {
     return (
-      <PlaylistForm
-        key={index}
+      <Breakpoint
+        key={`breakpoint-${index}`}
         id={index}
-        playlistData={playlistData}
-        setplaylistData={setplaylistData}
         breakpointsArr={breakpointsArr}
         setbreakpointsArr={setbreakpointsArr}
-        genresArr={genresArr}
-        setgenresArr={setgenresArr}
       />
     );
+  });
+
+  const segments = segmentsArr.map((element, index) => {
+    console.log(segments);
+    return (
+      <Segment
+        key={`segment-${index}`}
+        id={index}
+        segmentsArr={segmentsArr}
+        setSegmentsArr={setSegmentsArr}
+      />
+    );
+  });
+
+  const result = [];
+  breakpoints.forEach((element, index) => {
+    result.push(element);
+    if (segments[index]) {
+      result.push(segments[index]);
+    }
   });
 
   return (
@@ -34,7 +52,7 @@ const PlaylistPage = (props) => {
         setplaylistData={setplaylistData}
         updatePlaylistId={props.updatePlaylistId}
       /> */}
-      {segments}
+      {result}
       {/* placeholder for Spotify component with iFrame */}
     </div>
   );
