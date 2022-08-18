@@ -1,6 +1,8 @@
 import React from 'react';
 import Breakpoint from './Breakpoint.jsx';
 import Segment from './Segment.jsx';
+import BPMPlot from './BPMPlot.jsx';
+import CustomParamsPlot from './CustomParamsPlot.jsx';
 
 // function that takes breakpoints, segments state objects and packages into a request body that can be processesd by the back-end
 function remixBreakpointsAndSegmentDataIntoAnArrForServer(
@@ -70,6 +72,10 @@ const PlaylistPage = (props) => {
   return (
     <div id='formPage'>
       <h1>Fill out the form below to generate a new playlist</h1>
+      <div className='flex flex-col lg:flex-row'>
+        <BPMPlot breakpointsArr={breakpointsArr} />
+        <CustomParamsPlot breakpointsArr={breakpointsArr} />
+      </div>
       {result}
       <button
         type='button'
