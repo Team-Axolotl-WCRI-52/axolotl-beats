@@ -76,6 +76,7 @@ function App() {
   ]);
 
   const [loading, setLoading] = useState(false);
+  const [playlistName, setPlaylistName] = useState("What's an Axolotl?");
 
   return (
     <Router>
@@ -104,6 +105,8 @@ function App() {
             element={
               <PlaylistPage
                 setplaylistId={setplaylistId}
+                playlistName={playlistName}
+                setPlaylistName={setPlaylistName}
                 loading={loading}
                 setLoading={setLoading}
                 breakpointsArr={breakpointsArr}
