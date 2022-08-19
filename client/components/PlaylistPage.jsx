@@ -144,6 +144,7 @@ if (loading) {
       <button
         type='button'
         onClick={() => {
+          setLoading(true);
           fetch('/api/getDynamicPlaylist', {
             method: 'POST',
             headers: {
@@ -158,7 +159,10 @@ if (loading) {
             }),
           })
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+              setLoading(false);
+              console.log(data);
+            })
             .catch((err) => console.log(err));
         }}
       >
