@@ -8,26 +8,54 @@ function Breakpoint(props) {
 
   // Get the changing value of time and set its state on change
 
-  return (
-    <div className='m-5 rounded border border-borderColor w-11/12 lg:w-3/12 p-5'>
-      <h3 className='py-3'>At Minute: </h3>
-      <input
-        className='shadow appearance-none rounded border border-borderColor w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+
+  let minuteZeroOrEntry;
+
+  if (id === 0) {
+    minuteZeroOrEntry = (<h3 className='py-3'>Minute: 0</h3>)
+  } else {
+    minuteZeroOrEntry = (
+      <div>
+      <label className='py-3' for="minute">Minute: </label>
+      <input className ="w-10" id="minute"
         name='minuteInput'
-        min={
-          breakpointsArr[id - 1] !== undefined
-            ? breakpointsArr[id - 1].minute + 15
-            : 0
-        }
         value={breakpointsArr[id].minute}
-        type='number'
+        type='text'
         onChange={(e) => {
           const updateState = [...breakpointsArr];
-          updateState[id].minute = e.target.value;
+          updateState[id].minute = e.target.value * 1;
           setbreakpointsArr(updateState);
         }}
-        disabled={timeDisabled}
       ></input>
+      </div>
+    )
+  };
+
+    // // this was previously written by AL, and is being replaced by CV and AMG on thursday around 4:40pm
+
+    //   <input
+    //     className='shadow appearance-none rounded border border-borderColor w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+    //     name='minuteInput'
+    //     min={
+    //       breakpointsArr[id - 1] !== undefined
+    //         ? breakpointsArr[id - 1].minute + 15
+    //         : 0
+    //     }
+    //     value={breakpointsArr[id].minute}
+    //     type='number'
+    //     onChange={(e) => {
+    //       const updateState = [...breakpointsArr];
+    //       updateState[id].minute = e.target.value;
+    //       setbreakpointsArr(updateState);
+    //     }}
+    //     disabled={timeDisabled}
+    //   ></input>
+
+
+
+  return (
+    <div className='m-5 rounded border border-borderColor w-11/12 lg:w-3/12 p-5'>
+      {minuteZeroOrEntry}
       <br></br>
       <div className='m-3'>
         <label>

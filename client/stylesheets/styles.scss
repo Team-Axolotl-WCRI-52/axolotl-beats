@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 $font-family: 'Quicksand', sans-serif;
-$primary-color: #fad3da;
-$secondary-color: #ffe5d9ff;
-$spotify-color: rgb(200, 235, 214);
-$font-color: rgb(134, 109, 116);
+$primary-color: #fad3da; // primary color of the whole app
+$secondary-color: #85e085; // color for the top nav bar
+$spotify-color: rgb(200, 235, 214); // color for spotify login button in login page
+$font-color: rgb(134, 109, 116); // Color of font on login page and main page
 
-
-
-#navBar {
+#navBar { // selects persistent nav bar
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -18,7 +16,7 @@ $font-color: rgb(134, 109, 116);
   text-decoration: none;
 }
 
-#app {
+#app { // selects app component
   font-family: $font-family;
   background-color: $primary-color;
   display: flex;
@@ -27,6 +25,9 @@ $font-color: rgb(134, 109, 116);
   color: $font-color;
   width: 100%
 };
+#app .MuiSlider-root { // Slider on app
+  color: green;
+}
 
 #title {
   text-align: center;

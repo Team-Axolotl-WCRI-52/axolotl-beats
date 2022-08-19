@@ -38,7 +38,6 @@ import './stylesheets/app.css';
 
 function App() {
   const [playlistId, setplaylistId] = useState('Initial value');
-
   // AMG (wed. 5pm): could also include as state a 'custom_parameter_names' array, e.g. ['danciness', 'speechiness']. then, update the function definition remixBreakpointsAndSegmentDataIntoAnArrForServer to be a little cleaner.
 
   const [breakpointsArr, setbreakpointsArr] = useState([
