@@ -1,18 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 $font-family: 'Quicksand', sans-serif;
-<<<<<<< HEAD
 $primary-color: #fad3da; // primary color of the whole app
 $secondary-color: #85e085; // color for the top nav bar
 $spotify-color: rgb(200, 235, 214); // color for spotify login button in login page
 $font-color: rgb(134, 109, 116); // Color of font on login page and main page
-=======
-$primary-color: #ffe5ef; // #fad3da
-$secondary-color: #ffe5d9ff;
-$spotify-color: rgb(200, 235, 214);
-$font-color: #8a767e;
-
->>>>>>> dev
-
 
 #navBar { // selects persistent nav bar
   display: flex;
