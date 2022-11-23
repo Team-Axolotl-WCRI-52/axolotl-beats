@@ -132,4 +132,10 @@ playlistController.addTracks = async (req, res, next) => {
   }
 }
 
+// get all genres from spotify
+playlistController.getGenres = async (req, res, next) => {
+  const genres = await spotifyApi.getRecommendations({
+    
+  })
+}
 module.exports = playlistController;

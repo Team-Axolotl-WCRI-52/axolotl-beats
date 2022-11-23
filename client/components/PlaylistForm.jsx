@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PlaylistFormGenres from './PlaylistFormGenres.jsx';
 
 const PlaylistForm = (props) => {
   // props.updatePlaylistId("TEST ARGUMENT 123324732473289");
   const [showButton, setShowButton] = useState(false);
-  // declare const for each of our drop downs
-  // create React component for each element in drop down (stretch)
-  // const genres = ['']
+
 
   // onsubmit click handler for create playlist form and send to backend
   const handlePlaylistSubmit = async (event) => {
@@ -42,9 +41,6 @@ const PlaylistForm = (props) => {
     try {
       // make request to backend and save response to const
       const response = await fetch(playlistSubmitUrl, requestOptions);
-      // console.log('response: ', response);
-      // console.log('parsed response: ', JSON.parse(response));
-      // jsonify response and save to const playlist 
       const playlist = await response.json();
       console.log('playlist id:', playlist);
       // TODO: save playlist data to state and render Spotify iFrame component 
@@ -61,6 +57,9 @@ const PlaylistForm = (props) => {
     }
     
   }
+
+  // if add new genre is selected in the genre dropdown
+
 
   return (
   <div>
@@ -85,6 +84,8 @@ const PlaylistForm = (props) => {
           </label>
         </div>
 
+        <PlaylistFormGenres />
+{/* 
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What genre are you in the mood for?<br/>
@@ -95,9 +96,10 @@ const PlaylistForm = (props) => {
               <option value="work-out">Workout</option>
               <option value="jazz">Jazz</option>
               <option value="classical">Classical</option>
+              <option value="add-new-genre">Add New Genre</option>
             </select>
           </label>
-        </div>
+        </div> */}
 
         <div className='dropdown-container'>
           <label className='dropdown-label'>
